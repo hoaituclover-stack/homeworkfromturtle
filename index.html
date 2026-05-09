@@ -56,19 +56,18 @@
 
 <div class="main-container">
     <div id="login-screen">
-        <h2>Chào mừng em! Nhập tên để bắt đầu:</h2>
-        <input type="text" id="student-name" placeholder="Ví dụ: Nguyễn Văn A">
-        <button class="btn btn-start" onclick="showClasses()">Vào học</button>
+        <h2>Welcome! Please enter your name:</h2>
+        <input type="text" id="student-name" placeholder="Example: Nguyễn Văn A">
+        <button class="btn btn-start" onclick="showClasses()">Let's start!</button>
     </div>
 
     <div id="class-selection" style="display:none;">
-        <button class="btn btn-back" onclick="location.reload()">← Quay lại</button>
-        <h2>Chọn trình độ của em:</h2>
+        <button class="btn btn-back" onclick="location.reload()">← Back</button>
+        <h2>Choose your class or the level you want to practice</h2>
         <div class="class-grid">
-            <div class="class-card card-b1" onclick="showExercises('B1')">LỚP B1</div>
-            <div class="class-card card-b2" onclick="showExercises('B2')">LỚP B2</div>
-            <div class="class-card card-kids" onclick="showExercises('KIDS')">LỚP KIDS</div>
-            <div class="class-card card-ielts" onclick="showExercises('IELTS')">LỚP IELTS</div>
+            <div class="class-card card-b1" onclick="showExercises('B1')">Extra B1</div>
+            <div class="class-card card-b2" onclick="showExercises('B2')">Extra B2</div>
+            <div class="class-card card-kids" onclick="showExercises('KIDS')">KIDS</div>
         </div>
     </div>
 
@@ -84,10 +83,9 @@
     let studentName = "";
     let currentClass = "";
 
-    // Dữ liệu bài tập (Bạn có thể tự thêm link bài tập HTML của mình vào đây)
     const exercisesData = {
         'B1': [
-            { title: 'Reading Test 1', url: 'reading B1.1.html' },
+            { title: 'Reading Test 1', url: 'Reading B1.1.html' },
             { title: 'Vocabulary Unit 1', url: '#' }
         ],
         'IELTS': [
