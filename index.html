@@ -12,7 +12,7 @@
             --ielts: #6c5ce7;
             --bg: #f0f2f5;
         }
-        body { font-family: 'Arial', sans-serif; margin: 0; background: var(--bg); }
+        body { font-family: 'Fredoka', sans-serif; margin: 0; background: var(--bg); }
         header { background: var(--primary); color: white; padding: 20px; text-align: center; }
         
         /* Container chính */
@@ -65,6 +65,7 @@
         <button class="btn btn-back" onclick="location.reload()">← Back</button>
         <h2>Choose your class or the level you want to practice</h2>
         <div class="class-grid">
+            <div class="class-card card-a2" onclick="showExercises('A2')">Extra A2</div>
             <div class="class-card card-b1" onclick="showExercises('B1')">Extra B1</div>
             <div class="class-card card-b2" onclick="showExercises('B2')">Extra B2</div>
             <div class="class-card card-kids" onclick="showExercises('KIDS')">KIDS</div>
@@ -86,6 +87,14 @@
     const exercisesData = {
         'B1': [
             { title: 'Reading Test 1', url: 'Reading B1.1.html' },
+            { title: 'Vocabulary Unit 1', url: '#' }
+        ],
+        'IELTS': [
+            { title: 'IELTS Reading Actual Test', url: '#' },
+            { title: 'Listening Practice 1', url: '#' }
+        ]
+        'A2': [
+            { title: 'Vocab & Reading 1', url: 'A2-1.1.html' },
             { title: 'Vocabulary Unit 1', url: '#' }
         ],
         'IELTS': [
