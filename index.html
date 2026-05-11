@@ -15,10 +15,8 @@
         body { font-family: 'Fredoka', sans-serif; margin: 0; background: var(--bg); }
         header { background: var(--primary); color: white; padding: 20px; text-align: center; }
         
-        /* Container chính */
         .main-container { max-width: 1000px; margin: 20px auto; padding: 20px; }
         
-        /* Giao diện chọn lớp */
         .class-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 30px; }
         .class-card { 
             background: white; padding: 40px 20px; text-align: center; border-radius: 15px; 
@@ -26,24 +24,24 @@
             font-size: 24px; font-weight: bold; color: var(--primary);
         }
         .class-card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px rgba(0,0,0,0.2); }
+        
+        /* Thêm màu cho card A2 */
+        .card-a2 { border-bottom: 8px solid #feca57; } 
         .card-b1 { border-bottom: 8px solid #55efc4; }
         .card-b2 { border-bottom: 8px solid #81ecec; }
         .card-kids { border-bottom: 8px solid var(--kids); }
         .card-ielts { border-bottom: 8px solid var(--ielts); }
 
-        /* Danh sách bài tập */
-        #exercise-list { display: none; margin-top: 20px; }
+        #exercise-list { display: none; margin-top: 20px; } /* Đã thêm display: none */
         .exercise-item { 
             background: white; padding: 15px; margin-bottom: 10px; border-radius: 8px;
             display: flex; justify-content: space-between; align-items: center;
         }
         
-        /* Nút bấm */
         .btn { padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; }
         .btn-back { background: #636e72; color: white; margin-bottom: 20px; }
         .btn-start { background: var(--accent); color: white; }
 
-        /* Form tên học sinh */
         #login-screen { text-align: center; padding: 50px; }
         input[type="text"] { padding: 10px; width: 250px; border-radius: 5px; border: 1px solid #ccc; }
     </style>
@@ -75,8 +73,7 @@
     <div id="exercise-list">
         <button class="btn btn-back" onclick="backToClasses()">← Chọn lớp khác</button>
         <h2 id="selected-class-title">Danh sách bài tập</h2>
-        <div id="list-content">
-            </div>
+        <div id="list-content"></div>
     </div>
 </div>
 
@@ -84,15 +81,12 @@
     let studentName = "";
     let currentClass = "";
 
+    // Đã sửa dấu phẩy và gộp các khóa trùng lặp
     const exercisesData = {
         'B1': [
             { title: 'Reading Test 1', url: 'Reading B1.1.html' },
             { title: 'Vocabulary Unit 1', url: '#' }
         ],
-        'IELTS': [
-            { title: 'IELTS Reading Actual Test', url: '#' },
-            { title: 'Listening Practice 1', url: '#' }
-        ]
         'A2': [
             { title: 'Vocab & Reading 1', url: 'A2-1.1.html' },
             { title: 'Vocabulary Unit 1', url: '#' }
@@ -100,8 +94,10 @@
         'IELTS': [
             { title: 'IELTS Reading Actual Test', url: '#' },
             { title: 'Listening Practice 1', url: '#' }
+        ],
+        'KIDS': [
+            { title: 'Fun English 1', url: '#' }
         ]
-        // Thêm các lớp khác tương tự
     };
 
     function showClasses() {
@@ -121,19 +117,22 @@
         list.innerHTML = "";
         
         const tasks = exercisesData[className] || [];
-        tasks.forEach(task => {
-            list.innerHTML += `
-                <div class="exercise-item">
-                    <span>${task.title}</span>
-                    <button class="btn btn-start" onclick="startTask('${task.url}', '${task.title}')">Làm bài</button>
-                </div>
-            `;
-        });
+        if (tasks.length === 0) {
+            list.innerHTML = "<p>Hiện chưa có bài tập cho lớp này.</p>";
+        } else {
+            tasks.forEach(task => {
+                list.innerHTML += `
+                    <div class="exercise-item">
+                        <span>${task.title}</span>
+                        <button class="btn btn-start" onclick="startTask('${task.url}', '${task.title}')">Làm bài</button>
+                    </div>
+                `;
+            });
+        }
     }
 
     function startTask(url, title) {
         if(url === '#') return alert("Bài tập này đang được cập nhật!");
-        // Lưu thông tin vào bộ nhớ để bài tập có thể lấy được
         sessionStorage.setItem('studentName', studentName);
         sessionStorage.setItem('className', currentClass);
         sessionStorage.setItem('taskTitle', title);
