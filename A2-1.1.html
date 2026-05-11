@@ -1,8 +1,155 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Learning Portal</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --accent: #3498db;
+            --correct: #27ae60;
+            --wrong: #e74c3c;
+            --bg: #f4f7f6;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            margin: 0; padding: 0;
+            background-color: var(--bg);
+            color: #333;
+        }
+
+        header {
+            background: var(--primary);
+            color: white; padding: 1rem;
+            text-align: center; position: sticky; top: 0; z-index: 100;
+        }
+
+        .container {
+            margin: 20px auto;
+            padding: 25px;
+            background: white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            transition: max-width 0.4s ease;
+        }
+
+        /* 2) Độ rộng tùy chỉnh */
+        .width-vocab { max-width: 50%; }
+        .width-reading { max-width: 95%; }
+
+        .hidden { display: none !important; }
+
+        .question-block {
+            margin-bottom: 20px; padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .reading-layout {
+            display: flex; height: 75vh; gap: 20px;
+        }
+
+        .pane {
+            flex: 1; overflow-y: auto; padding: 20px;
+            border: 1px solid #ddd; border-radius: 8px; background: #fff;
+        }
+
+        .left-pane { background-color: #fcfcfc; }
+
+        /* 1) Đổi màu đáp án */
+        .wrong-answer { color: var(--wrong) !important; font-weight: bold; }
+        .correct-answer { color: var(--correct) !important; font-weight: bold; }
+        .ans-hint { font-size: 0.85em; margin-left: 8px; color: var(--correct); font-style: italic; }
+
+        input[type="text"], select {
+            padding: 8px; border: 1px solid #ccc; border-radius: 4px;
+        }
+
+        button {
+            padding: 12px 24px; background: var(--accent);
+            color: white; border: none; border-radius: 6px;
+            cursor: pointer; font-weight: bold; transition: 0.3s;
+        }
+
+        button:hover { opacity: 0.8; }
+        .btn-check { background: var(--correct); }
+
+        .score-box {
+            margin: 15px 0; padding: 15px;
+            background: #e8f4fd; border-radius: 8px;
+            text-align: center; font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>English Learning Portal</h1>
+</header>
+
+<div class="container width-vocab" id="vocab-page">
+    <h2>I. VOCABULARY PREVIEW</h2>
+    
+    <div id="vocab-ex1"><h3>Exercise 1: Word Meaning</h3></div>
+    <div id="vocab-ex2">
+        <h3>Exercise 2: Fill in the blanks</h3>
+        <p><i>Word Box: spectacular • biodiversity • interact • exhibition • discover • guided • congestion • voluntary • evidence • confident</i></p>
+        <div id="vocab-ex2-content"></div>
+    </div>
+
+    <div id="vocab-score-display" class="score-box hidden"></div>
+
+    <div class="btn-container" style="display: flex; justify-content: space-between; margin-top: 20px;">
+        <button class="btn-check" onclick="gradeVocab()">Check Vocab & Save Score</button>
+        <button onclick="showReading()">Go to Reading Exercise →</button>
+    </div>
+</div>
+
+<div class="container hidden width-reading" id="reading-page">
+    <div style="margin-bottom: 15px; display: flex; gap: 10px;">
+        <button onclick="showPart(1)">Part 1</button>
+        <button onclick="showPart(2)">Part 2</button>
+        <button onclick="showPart(3)">Part 3</button>
+        <button onclick="showVocab()" style="background: #95a5a6;">Back to Vocab</button>
+    </div>
+
+    <div class="reading-layout">
+        <div class="pane left-pane" id="reading-content"></div>
+        <div class="pane right-pane" id="reading-questions"></div>
+    </div>
+
+    <div id="reading-score-display" class="score-box hidden"></div>
+
+    <div class="btn-container" style="display: flex; justify-content: space-between; margin-top: 20px;">
+        <button id="prev-btn" onclick="prevPart()">← Previous</button>
+        <button class="btn-check" onclick="gradeReading()">Submit Reading & Save Score</button>
+        <button id="next-btn" onclick="nextPart()">Next →</button>
+    </div>
+</div>
+
 <script>
+        // 2. GỬI ĐIỂM VỀ GOOGLE SHEETS (Yêu cầu Web App URL từ Apps Script)
     const studentName = sessionStorage.getItem('studentName') || "Học sinh ẩn danh";
     const className = sessionStorage.getItem('className') || "Chưa rõ lớp";
     const taskTitle = sessionStorage.getItem('taskTitle') || "Reading 1";
-    const webAppUrl = 'https://script.google.com/macros/s/AKfycbyWB-EKtC3yxDAgjDcZhyJT6DRZYgKnNt0o3CendYaoXCd6-O68q78fG5EI9qhlxavZZQ/exec';
+    const webAppUrl = 'https://script.google.com/macros/s/AKfycbyWB-EKtC3yxDAgjDcZhyJT6DRZYgKnNt0o3CendYaoXCd6-O68q78fG5EI9qhlxavZZQ/exec'; // Thay link của bạn vào đây
+
+    fetch(webAppUrl, {
+        method: 'POST',
+        mode: 'no-cors', // Tránh lỗi CORS khi chạy file HTML cục bộ
+        body: JSON.stringify({
+            name: studentName,
+            className: className,
+            task: taskTitle,
+            score: score + "/" + total
+        })
+    }).then(() => {
+        console.log("Dữ liệu đã được gửi thành công!");
+    }).catch(err => {
+        console.error("Lỗi khi gửi dữ liệu:", err);
+    });
+
 
     const data = {
         vocab: {
@@ -36,9 +183,9 @@
                 { s: "10. She does [___] work at the community café on weekends.", a: "voluntary" }
             ]
         },
-        reading: {
+        reading: { /* Dữ liệu bài đọc giữ nguyên như cũ */
             part1: {
-                text: `<h3>Summer activities at London’s Kew Gardens</h3><p><strong>A.</strong> Climb up...</p><p><strong>B.</strong> The Nash...</p><p><strong>C.</strong> A world...</p><p><strong>D.</strong> An extraordinary...</p><p><strong>E.</strong> Come and see...</p>`, 
+                text: `<h3>Summer activities at London’s Kew Gardens</h3><p><strong>A.</strong> Climb up...</p><p><strong>B.</strong> The Nash...</p><p><strong>C.</strong> A world...</p><p><strong>D.</strong> An extraordinary...</p><p><strong>E.</strong> Come and see...</p><p><strong>F.</strong> Young explorers...</p><p><strong>G.</strong> What is...</p><p><strong>H.</strong> Visit our...</p>`, // (Lưu ý: Bạn hãy dán text đầy đủ vào đây)
                 questions: [
                     { q: "1. learning what all the different sections of a plant do", ans: "F" },
                     { q: "2. seeing art showing plants from a different part of the world", ans: "H" },
@@ -49,7 +196,7 @@
                 ]
             },
             part2: {
-                text: `<h3>City Park and Ride</h3><p>We have six...</p>`,
+                text: `<h3>City Park and Ride</h3><p>We have six...</p>`, // (Dán text đầy đủ)
                 questions: [
                     { q: "7. This was one of the first UK cities to introduce a Park and Ride scheme.", type: "TFNG", ans: "NOT GIVEN" },
                     { q: "8. The amount of congestion in the city centre has fallen.", type: "TFNG", ans: "TRUE" },
@@ -62,7 +209,7 @@
                 ]
             },
             part3: {
-                text: `<h3>Local activities</h3><p><strong>A. Friends...</strong></p>`,
+                text: `<h3>Local activities</h3><p><strong>A. Friends...</strong></p>`, // (Dán text đầy đủ)
                 questions: [
                     { q: "15. Susie has a teenage son...", ans: "E" },
                     { q: "16. Gareth is 21...", ans: "G" },
@@ -75,7 +222,9 @@
     };
 
     let currentPart = 1;
+    let vocabDone = false;
 
+    // Load UI
     function loadVocab() {
         const ex1Cont = document.getElementById('vocab-ex1');
         data.vocab.ex1.forEach((item, idx) => {
@@ -94,8 +243,10 @@
         });
     }
 
+    // 1) CHẤM ĐIỂM VOCAB RIÊNG
     function gradeVocab() {
         let vScore = 0;
+        // Ex 1
         data.vocab.ex1.forEach((item, idx) => {
             const selected = document.querySelector(`input[name="v1-${idx}"]:checked`);
             const parent = document.querySelectorAll(`input[name="v1-${idx}"]`)[0]?.closest('.question-block');
@@ -103,10 +254,11 @@
                 if (selected.value === item.ans) vScore++;
                 else {
                     parent.classList.add('wrong-answer');
-                    if(!parent.querySelector('.ans-hint')) parent.insertAdjacentHTML('beforeend', `<span class="ans-hint">Correct: ${item.ans}</span>`);
+                    parent.innerHTML += `<span class="ans-hint">Correct: ${item.ans}</span>`;
                 }
             }
         });
+        // Ex 2
         data.vocab.ex2.forEach((item, idx) => {
             const el = document.getElementById(`v2-${idx}`);
             const val = el.value.trim().toLowerCase();
@@ -115,19 +267,18 @@
                 vScore++;
             } else {
                 el.classList.add('wrong-answer');
-                if(!el.nextSibling) el.insertAdjacentHTML('afterend', `<span class="ans-hint">(${item.a})</span>`);
+                el.insertAdjacentHTML('afterend', `<span class="ans-hint">(${item.a})</span>`);
             }
         });
 
         const result = document.getElementById('vocab-score-display');
         result.innerHTML = `Vocab Score: ${vScore} / 25`;
         result.classList.remove('hidden');
-        sendDataToSheet("Vocabulary Preview", vScore + "/25");
+        sendDataToSheet("Vocabulary", vScore, 25);
     }
 
     function gradeReading() {
         let rScore = 0;
-        let totalQ = 19;
         [1, 2, 3].forEach(p => {
             data.reading[`part${p}`].questions.forEach((item, idx) => {
                 const el = document.getElementById(`r${p}-${idx}`);
@@ -145,24 +296,30 @@
         });
 
         const result = document.getElementById('reading-score-display');
-        result.innerHTML = `Reading Score: ${rScore} / ${totalQ}`;
+        result.innerHTML = `Reading Score: ${rScore} / 19`;
         result.classList.remove('hidden');
-        sendDataToSheet(taskTitle, rScore + "/" + totalQ);
+        sendDataToSheet("Reading", rScore, 19);
     }
 
-    function sendDataToSheet(type, finalScore) {
-        fetch(webAppUrl, {
+    // 3) GỬI ĐIỂM VỀ GOOGLE SHEET
+    function sendDataToSheet(type, score, total) {
+        if (SCRIPT_URL === "YOUR_GOOGLE_APPS_SCRIPT_URL_HERE") return;
+        
+        fetch(SCRIPT_URL, {
             method: "POST",
             mode: "no-cors",
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                name: studentName,
-                className: className,
-                task: type,
-                score: finalScore
+                timestamp: new Date().toLocaleString(),
+                type: type,
+                score: score,
+                total: total,
+                percentage: ((score/total)*100).toFixed(2) + "%"
             })
-        }).then(() => console.log("Score sent for " + type));
+        }).then(() => console.log(type + " score sent!"));
     }
 
+    // Navigation
     function showReading() {
         document.getElementById('vocab-page').classList.add('hidden');
         document.getElementById('reading-page').classList.remove('hidden');
@@ -198,3 +355,5 @@
 
     loadVocab();
 </script>
+</body>
+</html>
