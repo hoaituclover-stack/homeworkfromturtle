@@ -3,147 +3,782 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hệ thống Bài tập Tiếng Anh</title>
+    <title>Turtle's Home - Homework Platform</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         :root {
-            --primary: #2c3e50;
-            --accent: #3498db;
-            --kids: #ff7675;
-            --ielts: #6c5ce7;
-            --bg: #f0f2f5;
+            --primary-green: #5FD5C8;
+            --primary-yellow: #FFD97D;
+            --primary-orange: #FF9F5A;
+            --primary-pink: #FF9FB2;
+            --light-purple: #E8DFF5;
+            --dark-text: #2D3E50;
+            --border-radius: 20px;
         }
-        body { font-family: 'Fredoka', sans-serif; margin: 0; background: var(--bg); }
-        header { background: var(--primary); color: white; padding: 20px; text-align: center; }
-        
-        .main-container { max-width: 1000px; margin: 20px auto; padding: 20px; }
-        
-        .class-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 30px; }
-        .class-card { 
-            background: white; padding: 40px 20px; text-align: center; border-radius: 15px; 
-            cursor: pointer; transition: 0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            font-size: 24px; font-weight: bold; color: var(--primary);
-        }
-        .class-card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px rgba(0,0,0,0.2); }
-        
-        /* Thêm màu cho card A2 */
-        .card-a2 { border-bottom: 8px solid #feca57; } 
-        .card-b1 { border-bottom: 8px solid #55efc4; }
-        .card-b2 { border-bottom: 8px solid #81ecec; }
-        .card-kids { border-bottom: 8px solid var(--kids); }
-        .card-ielts { border-bottom: 8px solid var(--ielts); }
 
-        #exercise-list { display: none; margin-top: 20px; } /* Đã thêm display: none */
-        .exercise-item { 
-            background: white; padding: 15px; margin-bottom: 10px; border-radius: 8px;
-            display: flex; justify-content: space-between; align-items: center;
+        html, body {
+            height: 100%;
+            font-family: 'Fredoka', 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #fff5f1 0%, #f0f9f8 100%);
+            overflow-x: hidden;
         }
-        
-        .btn { padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; }
-        .btn-back { background: #636e72; color: white; margin-bottom: 20px; }
-        .btn-start { background: var(--accent); color: white; }
 
-        #login-screen { text-align: center; padding: 50px; }
-        input[type="text"] { padding: 10px; width: 250px; border-radius: 5px; border: 1px solid #ccc; }
+        .container {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            padding: 60px;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* ===== LEFT SECTION ===== */
+        .left-section {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 30px;
+            position: relative;
+        }
+
+        .header-title {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--dark-text);
+            margin-bottom: 10px;
+            line-height: 1.2;
+        }
+
+        .header-subtitle {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        /* Mascot */
+        .mascot {
+            width: 280px;
+            height: 280px;
+            background: linear-gradient(135deg, #FFE8B6 0%, #FFDBA3 100%);
+            border-radius: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            position: relative;
+            box-shadow: 0 20px 50px rgba(255, 159, 90, 0.15);
+            animation: floatAnimation 3s ease-in-out infinite;
+        }
+
+        @keyframes floatAnimation {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .turtle-char {
+            font-size: 140px;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
+        }
+
+        /* Auth Form */
+        .auth-form {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            animation: slideInUp 0.6s ease-out;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .form-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--dark-text);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--dark-text);
+            margin-bottom: 8px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #E8E8E8;
+            border-radius: 12px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary-green);
+            background-color: #F5FFFB;
+            box-shadow: 0 0 0 3px rgba(95, 213, 200, 0.1);
+        }
+
+        .form-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .btn {
+            padding: 14px 24px;
+            border: none;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-login {
+            background: linear-gradient(135deg, var(--primary-green) 0%, #4AC9BC 100%);
+            color: white;
+            box-shadow: 0 8px 20px rgba(95, 213, 200, 0.3);
+        }
+
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(95, 213, 200, 0.4);
+        }
+
+        .btn-signup {
+            background: linear-gradient(135deg, var(--primary-yellow) 0%, #FFC857 100%);
+            color: var(--dark-text);
+            box-shadow: 0 8px 20px rgba(255, 217, 125, 0.3);
+        }
+
+        .btn-signup:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(255, 217, 125, 0.4);
+        }
+
+        /* ===== RIGHT SECTION ===== */
+        .right-section {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--dark-text);
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .levels-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        .level-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 40px 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            border: 3px solid transparent;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .level-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s ease;
+            pointer-events: none;
+        }
+
+        .level-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+        }
+
+        .level-card:hover::before {
+            left: 100%;
+        }
+
+        .level-icon {
+            font-size: 80px;
+            line-height: 1;
+            flex-shrink: 0;
+        }
+
+        .level-content {
+            flex: 1;
+        }
+
+        .level-name {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--dark-text);
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+
+        .level-desc {
+            font-size: 14px;
+            color: #999;
+            font-weight: 500;
+        }
+
+        /* Individual Level Colors */
+        .level-a2 {
+            border-color: var(--primary-green);
+            background: linear-gradient(135deg, rgba(95, 213, 200, 0.05) 0%, transparent 100%);
+        }
+
+        .level-a2:hover {
+            border-color: var(--primary-green);
+            background: linear-gradient(135deg, rgba(95, 213, 200, 0.1) 0%, transparent 100%);
+        }
+
+        .level-b1 {
+            border-color: var(--primary-yellow);
+            background: linear-gradient(135deg, rgba(255, 217, 125, 0.05) 0%, transparent 100%);
+        }
+
+        .level-b1:hover {
+            border-color: var(--primary-yellow);
+            background: linear-gradient(135deg, rgba(255, 217, 125, 0.1) 0%, transparent 100%);
+        }
+
+        .level-b2 {
+            border-color: var(--primary-pink);
+            background: linear-gradient(135deg, rgba(255, 159, 178, 0.05) 0%, transparent 100%);
+        }
+
+        .level-b2:hover {
+            border-color: var(--primary-pink);
+            background: linear-gradient(135deg, rgba(255, 159, 178, 0.1) 0%, transparent 100%);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 40px;
+            border-radius: var(--border-radius);
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.3s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .modal-header h2 {
+            color: var(--dark-text);
+            font-size: 24px;
+            margin: 0;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: #999;
+            transition: all 0.3s;
+        }
+
+        .close-btn:hover {
+            color: var(--dark-text);
+        }
+
+        .exercice-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .exercice-item {
+            background: linear-gradient(135deg, rgba(255, 217, 125, 0.1) 0%, transparent 100%);
+            border: 2px solid var(--primary-yellow);
+            border-radius: 12px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .exercice-item:hover {
+            background: linear-gradient(135deg, rgba(255, 217, 125, 0.2) 0%, transparent 100%);
+            transform: translateX(5px);
+            box-shadow: 0 8px 20px rgba(255, 217, 125, 0.2);
+        }
+
+        .exercice-info {
+            flex: 1;
+        }
+
+        .exercice-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--dark-text);
+            margin-bottom: 5px;
+        }
+
+        .exercice-desc {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .exercice-icon {
+            font-size: 24px;
+            margin-left: 15px;
+        }
+
+        .exercice-results {
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid rgba(255, 217, 125, 0.3);
+            font-size: 12px;
+            color: #999;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                padding: 40px;
+            }
+
+            .header-title {
+                font-size: 36px;
+            }
+
+            .levels-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                padding: 20px;
+            }
+
+            .header-title {
+                font-size: 28px;
+            }
+
+            .mascot {
+                width: 200px;
+                height: 200px;
+            }
+
+            .turtle-char {
+                font-size: 100px;
+            }
+
+            .auth-form {
+                padding: 30px 20px;
+            }
+
+            .form-buttons {
+                grid-template-columns: 1fr;
+            }
+
+            .levels-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .level-card {
+                padding: 25px 20px;
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .level-icon {
+                font-size: 60px;
+            }
+
+            .level-name {
+                font-size: 24px;
+            }
+
+            .modal-content {
+                max-width: 90%;
+                padding: 25px;
+            }
+        }
     </style>
 </head>
 <body>
+    <div class="container">
+        <!-- LEFT SECTION -->
+        <div class="left-section">
+            <div>
+                <h1 class="header-title">TURTLE's Home</h1>
+                <p class="header-subtitle"></p>
+            </div>
 
-<header>
-    <h1>TUWAII'S HOMEWORK AREA</h1>
-</header>
+            <div class="mascot">
+                <div class="turtle-char">🐢</div>
+            </div>
 
-<div class="main-container">
-    <div id="login-screen">
-        <h2>Welcome! Please enter your name:</h2>
-        <input type="text" id="student-name" placeholder="Example: Nguyễn Văn A">
-        <button class="btn btn-start" onclick="showClasses()">Let's start!</button>
-    </div>
+            <form class="auth-form" id="authForm">
+                <h2 class="form-title">Start now!</h2>
 
-    <div id="class-selection" style="display:none;">
-        <button class="btn btn-back" onclick="location.reload()">← Back</button>
-        <h2>Choose your class or the level you want to practice</h2>
-        <div class="class-grid">
-            <div class="class-card card-a2" onclick="showExercises('A2')">Extra A2</div>
-            <div class="class-card card-b1" onclick="showExercises('B1')">Extra B1</div>
-            <div class="class-card card-b2" onclick="showExercises('B2')">Extra B2</div>
-            <div class="class-card card-kids" onclick="showExercises('KIDS')">KIDS</div>
+                <div class="form-group">
+                    <label for="fullname">Your full name</label>
+                    <input type="text" id="fullname" name="fullname" placeholder="Enter your full name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone number</label>
+                    <input type="tel" id="phone" name="phone" placeholder="Your phone number" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="parentphone">Your parent's phone number</label>
+                    <input type="tel" id="parentphone" name="parentphone" placeholder="Your parent's phone number" required>
+                </div>
+
+                <div class="form-buttons">
+                    <button type="submit" class="btn btn-login">Log in</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- RIGHT SECTION -->
+        <div class="right-section">
+            <h2 class="section-title">Chọn Level Của Bạn</h2>
+
+            <div class="levels-grid">
+                <!-- Level A2 -->
+                <a href="level-a2.html" class="level-card level-a2">
+                    <div class="level-icon">🟢</div>
+                    <div class="level-content">
+                        <div class="level-name">A2</div>
+                        <div class="level-desc">Elementary</div>
+                    </div>
+                </a>
+
+                <!-- Level B1 -->
+                <a href="#" class="level-card level-b1" id="b1-card">
+                    <div class="level-icon">🟡</div>
+                    <div class="level-content">
+                        <div class="level-name">B1</div>
+                        <div class="level-desc">Intermediate</div>
+                    </div>
+                </a>
+
+                <!-- Level B2 -->
+                <a href="level-b2.html" class="level-card level-b2">
+                    <div class="level-icon">🔴</div>
+                    <div class="level-content">
+                        <div class="level-name">B2</div>
+                        <div class="level-desc">Upper Intermediate</div>
+                    </div>
+                </a>
+            </div>
         </div>
     </div>
 
-    <div id="exercise-list">
-        <button class="btn btn-back" onclick="backToClasses()">← Chọn lớp khác</button>
-        <h2 id="selected-class-title">Danh sách bài tập</h2>
-        <div id="list-content"></div>
-    </div>
-</div>
+    <!-- Modal for B1 Level -->
+    <div id="b1Modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>📖 Bài Tập Reading - B1</h2>
+                <button class="close-btn" onclick="closeB1Modal()">&times;</button>
+            </div>
 
-<script>
-    let studentName = "";
-    let currentClass = "";
-
-    // Đã sửa dấu phẩy và gộp các khóa trùng lặp
-    const exercisesData = {
-        'B1': [
-            { title: 'Reading Test 1', url: 'Reading B1.1.html' },
-            { title: 'Vocabulary Unit 1', url: '#' }
-        ],
-        'A2': [
-            { title: 'Vocab & Reading 1', url: 'A2-1.1.html' },
-            { title: 'Vocabulary Unit 1', url: '#' }
-        ],
-        'IELTS': [
-            { title: 'IELTS Reading Actual Test', url: '#' },
-            { title: 'Listening Practice 1', url: '#' }
-        ],
-        'KIDS': [
-            { title: 'Fun English 1', url: '#' }
-        ]
-    };
-
-    function showClasses() {
-        studentName = document.getElementById('student-name').value;
-        if (!studentName) return alert("Vui lòng nhập tên!");
-        document.getElementById('login-screen').style.display = 'none';
-        document.getElementById('class-selection').style.display = 'block';
-    }
-
-    function showExercises(className) {
-        currentClass = className;
-        document.getElementById('class-selection').style.display = 'none';
-        document.getElementById('exercise-list').style.display = 'block';
-        document.getElementById('selected-class-title').innerText = "Bài tập lớp " + className;
-        
-        const list = document.getElementById('list-content');
-        list.innerHTML = "";
-        
-        const tasks = exercisesData[className] || [];
-        if (tasks.length === 0) {
-            list.innerHTML = "<p>Hiện chưa có bài tập cho lớp này.</p>";
-        } else {
-            tasks.forEach(task => {
-                list.innerHTML += `
-                    <div class="exercise-item">
-                        <span>${task.title}</span>
-                        <button class="btn btn-start" onclick="startTask('${task.url}', '${task.title}')">Làm bài</button>
+            <div class="exercice-list">
+                <!-- Reading B1.1 -->
+                <a href="reading-b1-1.html" class="exercice-item">
+                    <div class="exercice-info">
+                        <div class="exercice-title">Bài 1: Kew Gardens & Park and Ride</div>
+                        <div class="exercice-desc">Kỹ năng: Matching Headings, True/False/Not Given, Matching Names</div>
+                        <div class="exercice-results" id="results-b1-1"></div>
                     </div>
-                `;
-            });
+                    <div class="exercice-icon">→</div>
+                </a>
+
+                <!-- Reading B1.2 -->
+                <a href="reading-b1-2.html" class="exercice-item">
+                    <div class="exercice-info">
+                        <div class="exercice-title">Bài 2: Dolphin Trip & Business Presentation</div>
+                        <div class="exercice-desc">Kỹ năng: True/False, Multiple Choice, Fill in the Blanks</div>
+                        <div class="exercice-results" id="results-b1-2"></div>
+                    </div>
+                    <div class="exercice-icon">→</div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ===== STUDENT MANAGEMENT =====
+        class StudentManager {
+            constructor() {
+                this.studentKey = 'studentData';
+                this.resultsKey = 'studentResults';
+            }
+
+            getCurrentStudent() {
+                const data = localStorage.getItem(this.studentKey);
+                return data ? JSON.parse(data) : null;
+            }
+
+            getStudentResults() {
+                const student = this.getCurrentStudent();
+                if (!student) return {};
+                const resultsKey = `${this.resultsKey}_${student.phone}`;
+                const data = localStorage.getItem(resultsKey);
+                return data ? JSON.parse(data) : {};
+            }
+
+            saveExerciseResult(exerciseId, score, maxScore, duration) {
+                const student = this.getCurrentStudent();
+                if (!student) return false;
+
+                const resultsKey = `${this.resultsKey}_${student.phone}`;
+                const results = this.getStudentResults();
+
+                results[exerciseId] = {
+                    score: score,
+                    maxScore: maxScore,
+                    percentage: Math.round((score / maxScore) * 100),
+                    completedAt: new Date().toLocaleString('vi-VN'),
+                    duration: duration // thời gian làm bài (tính bằng giây)
+                };
+
+                localStorage.setItem(resultsKey, JSON.stringify(results));
+                return true;
+            }
+
+            displayResults() {
+                const results = this.getStudentResults();
+                
+                // Hiển thị kết quả B1.1
+                const b11Results = results['b1-1'];
+                const resultsB11 = document.getElementById('results-b1-1');
+                if (b11Results && resultsB11) {
+                    const duration = this.formatDuration(b11Results.duration);
+                    resultsB11.innerHTML = `✅ Hoàn thành: ${b11Results.score}/${b11Results.maxScore} (${b11Results.percentage}%) - Thời gian: ${duration}`;
+                }
+
+                // Hiển thị kết quả B1.2
+                const b12Results = results['b1-2'];
+                const resultsB12 = document.getElementById('results-b1-2');
+                if (b12Results && resultsB12) {
+                    const duration = this.formatDuration(b12Results.duration);
+                    resultsB12.innerHTML = `✅ Hoàn thành: ${b12Results.score}/${b12Results.maxScore} (${b12Results.percentage}%) - Thời gian: ${duration}`;
+                }
+            }
+
+            formatDuration(seconds) {
+                if (!seconds) return '0s';
+                const hours = Math.floor(seconds / 3600);
+                const minutes = Math.floor((seconds % 3600) / 60);
+                const secs = seconds % 60;
+
+                if (hours > 0) {
+                    return `${hours}h ${minutes}m`;
+                } else if (minutes > 0) {
+                    return `${minutes}m ${secs}s`;
+                } else {
+                    return `${secs}s`;
+                }
+            }
         }
-    }
 
-    function startTask(url, title) {
-        if(url === '#') return alert("Bài tập này đang được cập nhật!");
-        sessionStorage.setItem('studentName', studentName);
-        sessionStorage.setItem('className', currentClass);
-        sessionStorage.setItem('taskTitle', title);
-        window.location.href = url;
-    }
+        const studentManager = new StudentManager();
 
-    function backToClasses() {
-        document.getElementById('exercise-list').style.display = 'none';
-        document.getElementById('class-selection').style.display = 'block';
-    }
-</script>
+        // ===== FORM HANDLING =====
+        const authForm = document.getElementById('authForm');
+        const signupBtn = document.getElementById('signupBtn');
+        const b1Card = document.getElementById('b1-card');
+
+        authForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const fullname = document.getElementById('fullname').value;
+            const phone = document.getElementById('phone').value;
+            const parentphone = document.getElementById('parentphone').value;
+
+            if (fullname && phone && parentphone) {
+                // Save to localStorage
+                localStorage.setItem('studentData', JSON.stringify({
+                    fullname: fullname,
+                    phone: phone,
+                    parentphone: parentphone,
+                    loginTime: new Date().toLocaleString('vi-VN')
+                }));
+
+                alert(`Xin chào ${fullname}! Đăng nhập thành công.\nVui lòng chọn level để tiếp tục.`);
+                authForm.reset();
+                updateUI();
+            } else {
+                alert('Vui lòng điền đầy đủ thông tin!');
+            }
+        });
+
+        signupBtn.addEventListener('click', function() {
+            alert('Chức năng Đăng Kí sẽ được cập nhật!\nHiện tại vui lòng sử dụng Đăng Nhập để tiếp tục.');
+        });
+
+        // ===== B1 LEVEL CARD HANDLER =====
+        b1Card.addEventListener('click', function(e) {
+            e.preventDefault();
+            const studentData = localStorage.getItem('studentData');
+            if (!studentData) {
+                alert('Vui lòng đăng nhập trước khi chọn level!');
+                document.getElementById('fullname').focus();
+            } else {
+                openB1Modal();
+            }
+        });
+
+        function openB1Modal() {
+            const modal = document.getElementById('b1Modal');
+            modal.classList.add('show');
+            studentManager.displayResults();
+        }
+
+        function closeB1Modal() {
+            const modal = document.getElementById('b1Modal');
+            modal.classList.remove('show');
+        }
+
+        // ===== LEVEL CARD VALIDATION =====
+        const levelCards = document.querySelectorAll('.level-card:not(#b1-card)');
+        levelCards.forEach(card => {
+            card.addEventListener('click', function(e) {
+                const studentData = localStorage.getItem('studentData');
+                if (!studentData) {
+                    e.preventDefault();
+                    alert('Vui lòng đăng nhập trước khi chọn level!');
+                    document.getElementById('fullname').focus();
+                }
+            });
+        });
+
+        // ===== UI UPDATES =====
+        function updateUI() {
+            const studentData = localStorage.getItem('studentData');
+            if (studentData) {
+                const data = JSON.parse(studentData);
+                document.querySelector('.form-title').textContent = `Hello, ${data.fullname}!`;
+            }
+        }
+
+        // ===== INITIALIZE =====
+        window.addEventListener('load', function() {
+            updateUI();
+        });
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('b1Modal');
+            if (event.target === modal) {
+                modal.classList.remove('show');
+            }
+        }
+
+        // Export studentManager globally for other pages
+        window.studentManager = studentManager;
+    </script>
 
 </body>
 </html>
