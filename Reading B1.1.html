@@ -1,408 +1,1068 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Homework: English Reading Practice</title>
+    <title>IELTS Reading A2 - Kew Gardens & Park and Ride</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary-color: #2c3e50;
-            --accent-color: #3498db;
-            --correct-color: #27ae60;
-            --wrong-color: #e74c3c;
-            --bg-color: #f4f7f6;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        * {
             margin: 0;
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-            background-color: var(--bg-color);
-        }
-
-        header {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 10px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 100;
-        }
-
-        .container {
-            display: flex;
-            flex: 1;
-            overflow: hidden;
-            border-top: 2px solid #ddd;
-        }
-
-        /* Chia đôi màn hình */
-        .panel {
-            width: 50%;
-            overflow-y: auto;
-            padding: 30px;
+            padding: 0;
             box-sizing: border-box;
         }
 
-        .left-panel {
-            border-right: 2px solid #ccc;
-            background-color: white;
+        :root {
+            --primary: #6366f1;
+            --secondary: #8b5cf6;
+            --accent: #06b6d4;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --light: #f0f9ff;
+            --lighter: #f8fafc;
+            --border: #cbd5e1;
+            --text: #1e293b;
+        }
+
+        body {
+            font-family: 'Fredoka', sans-serif;
+            background: linear-gradient(135deg, #f0f9ff 0%, #f3f4f6 100%);
+            color: var(--text);
             line-height: 1.6;
         }
 
-        .right-panel {
-            background-color: #fafafa;
-        }
-
-        /* Typography */
-        h2 { color: var(--accent-color); border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        .reading-content { white-space: pre-wrap; font-size: 16px; }
-        
-        /* Questions styling */
-        .question-block {
-            background: white;
-            padding: 15px;
-            margin-bottom: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        }
-
-        .part-section { display: none; }
-        .part-section.active { display: block; }
-
-        input[type="text"] {
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            width: 150px;
-        }
-
-        .options label {
-            display: block;
-            margin: 8px 0;
-            cursor: pointer;
-        }
-
-        /* Navigation Buttons */
-        .nav-controls {
-            padding: 20px;
-            text-align: center;
-            background: white;
-            border-top: 1px solid #ddd;
-        }
-
-        button {
-            padding: 10px 25px;
-            margin: 0 10px;
-            cursor: pointer;
-            border: none;
-            border-radius: 5px;
-            background-color: var(--accent-color);
+        /* ===== NAVBAR ===== */
+        nav.navbar {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             color: white;
-            font-weight: bold;
+            padding: 1.2rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.3);
+        }
+
+        .navbar-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            letter-spacing: -0.5px;
+        }
+
+        .navbar-brand i {
+            font-size: 1.8rem;
+        }
+
+        .navbar-nav {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .navbar-nav a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .navbar-nav a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .navbar-nav a.active {
+            background: rgba(255, 255, 255, 0.3);
+            color: white;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+        }
+
+        .navbar-actions {
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 0.6rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .nav-btn.danger:hover {
+            background: var(--danger);
+            border-color: var(--danger);
+        }
+
+        /* ===== READING PAGES ===== */
+        .reading-page {
+            display: none;
+            height: calc(100vh - 85px);
+            overflow: hidden;
+        }
+
+        .reading-page.active {
+            display: flex;
+        }
+
+        .reading-header {
+            position: sticky;
+            top: 0;
+            background: white;
+            z-index: 100;
+            padding: 1.2rem 1.5rem;
+            border-bottom: 3px solid var(--accent);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            animation: slideDown 0.3s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .reading-header h2 {
+            color: var(--primary);
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .reading-header h2 i {
+            font-size: 1.5rem;
+            color: var(--secondary);
+        }
+
+        .highlight-toolbar {
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            background: linear-gradient(135deg, #f0f9ff 0%, #fef3c7 100%);
+            padding: 0.8rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .highlight-btn {
+            padding: 0.5rem 1rem;
+            background: white;
+            border: 2px solid var(--accent);
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .highlight-btn:hover {
+            background: var(--accent);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3);
+        }
+
+        .highlight-blue { background-color: #bfdbfe !important; }
+        .highlight-green { background-color: #bbf7d0 !important; }
+        .highlight-pink { background-color: #fbcfe8 !important; }
+
+        /* ===== SPLIT SCREEN LAYOUT ===== */
+        .reading-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            width: 100%;
+            height: 100%;
+            gap: 0;
+        }
+
+        .reading-pane {
+            background: white;
+            border-right: 3px solid var(--border);
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .reading-pane:last-child {
+            border-right: none;
+            border-left: 3px solid var(--border);
+        }
+
+        .reading-pane-content {
+            padding: 2rem;
+            flex: 1;
+        }
+
+        .reading-text {
+            color: var(--text);
+            line-height: 2;
+            font-size: 1.05rem;
+        }
+
+        .reading-text p {
+            margin-bottom: 1.3rem;
+            text-align: justify;
+            letter-spacing: 0.3px;
+        }
+
+        .reading-text strong {
+            color: var(--secondary);
+            font-weight: 600;
+        }
+
+        .questions-header {
+            background: linear-gradient(135deg, #dbeafe 0%, #e9d5ff 100%);
+            padding: 1.2rem;
+            padding-top: 1.5rem;
+            border-bottom: 2px solid var(--accent);
+            text-align: center;
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+        }
+
+        .questions-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .question-item {
+            background: linear-gradient(135deg, #f0f9ff 0%, #f3f4f6 100%);
+            border-left: 5px solid var(--accent);
+            padding: 1.2rem;
+            border-radius: 10px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .question-item:hover {
+            background: linear-gradient(135deg, #e0f2fe 0%, #e9e5ff 100%);
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.15);
+            transform: translateX(4px);
+        }
+
+        .question-item p {
+            margin: 0 0 0.8rem 0;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--text);
+        }
+
+        .question-item input[type="text"],
+        .question-item input[type="radio"],
+        .question-item select {
+            padding: 0.7rem 0.9rem;
+            border: 2px solid var(--accent);
+            border-radius: 6px;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .question-item input[type="text"] {
+            width: 100%;
+            max-width: 180px;
+        }
+
+        .question-item input[type="text"]:focus,
+        .question-item select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+            background-color: #f0f9ff;
+        }
+
+        .question-item input[type="radio"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: var(--accent);
+        }
+
+        .option-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 6px;
+            transition: 0.3s;
+            margin-bottom: 0.5rem;
+        }
+
+        .option-label:hover {
+            background: rgba(6, 182, 212, 0.1);
+        }
+
+        /* ===== ANSWER FEEDBACK ===== */
+        .correct-answer {
+            background: #d1fae5 !important;
+            border-left-color: var(--success) !important;
+        }
+
+        .correct-answer input,
+        .correct-answer select {
+            border-color: var(--success) !important;
+            background: #ecfdf5 !important;
+        }
+
+        .wrong-answer {
+            background: #fee2e2 !important;
+            border-left-color: var(--danger) !important;
+        }
+
+        .wrong-answer input,
+        .wrong-answer select {
+            border-color: var(--danger) !important;
+            background: #fef2f2 !important;
+        }
+
+        .answer-hint {
+            display: block;
+            font-size: 0.85rem;
+            margin-top: 0.6rem;
+            font-weight: 600;
+            border-radius: 4px;
+            padding: 0.5rem 0.8rem;
+        }
+
+        .answer-hint.correct {
+            color: var(--success);
+            background: #ecfdf5;
+        }
+
+        .answer-hint.wrong {
+            color: var(--danger);
+            background: #fef2f2;
+        }
+
+        /* ===== BUTTONS ===== */
+        button {
+            padding: 0.9rem 1.8rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            font-family: 'Fredoka', sans-serif;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, var(--success) 0%, #059669 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-success:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            box-shadow: 0 2px 10px rgba(99, 102, 241, 0.1);
+        }
+
+        .btn-secondary:hover:not(:disabled) {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.3);
+        }
+
+        /* ===== NAVIGATION BAR ===== */
+        .reading-nav {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border-top: 3px solid var(--accent);
+            padding: 1.2rem 2rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            box-shadow: 0 -4px 20px rgba(99, 102, 241, 0.3);
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 500;
+        }
+
+        /* ===== MODAL ===== */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.show {
+            display: flex;
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.3s;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid var(--accent);
+        }
+
+        .modal-header h2 {
+            color: var(--primary);
+            margin: 0;
+            font-size: 1.4rem;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: var(--primary);
+            padding: 0;
+            width: auto;
+            height: auto;
             transition: 0.3s;
         }
 
-        button:disabled { background-color: #bdc3c7; cursor: not-allowed; }
-        button:hover:not(:disabled) { opacity: 0.8; }
-
-        #result-area {
-            display: none;
-            text-align: center;
-            padding: 20px;
-            font-size: 1.5em;
-            font-weight: bold;
+        .modal-close:hover {
+            color: var(--danger);
+            transform: rotate(90deg);
         }
 
-        .wrong-answer { color: var(--wrong-color); font-weight: bold; }
-        .correct-hint { color: var(--correct-color); font-size: 0.9em; margin-left: 10px; }
+        .modal-content p {
+            margin-bottom: 1rem;
+            line-height: 1.7;
+            color: var(--text);
+        }
+
+        .modal-content h3 {
+            color: var(--primary);
+            margin-top: 1.5rem;
+            margin-bottom: 0.8rem;
+            font-weight: 700;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .reading-layout {
+                grid-template-columns: 1fr;
+                height: auto;
+            }
+
+            .reading-page.active {
+                display: block;
+                height: auto;
+            }
+
+            .reading-pane {
+                border-right: none;
+                border-bottom: 3px solid var(--border);
+                height: auto;
+                overflow: visible;
+            }
+
+            .reading-pane:last-child {
+                border-left: none;
+                border-top: 3px solid var(--border);
+            }
+
+            .reading-nav {
+                position: sticky;
+                bottom: auto;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem;
+            }
+
+            .reading-pane-content {
+                padding: 1.5rem;
+            }
+
+            button {
+                width: 100%;
+            }
+
+            .question-item input[type="text"] {
+                width: 100%;
+                max-width: none;
+            }
+
+            .navbar-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .navbar-nav {
+                flex-direction: column;
+                gap: 0.5rem;
+                width: 100%;
+            }
+
+            .navbar-nav a {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        .hidden {
+            display: none !important;
+        }
     </style>
 </head>
 <body>
 
-<header>
-    <div id="part-title">Reading Homework</div>
-    <div id="score-display">Part: <span id="current-part-num">1</span>/4</div>
-</header>
+<!-- ===== NAVBAR ===== -->
+<nav class="navbar">
+    <div class="navbar-container">
+        <div class="navbar-brand">
+            <i class="fas fa-book-open"></i>
+            <span>IELTS Reading A2</span>
+        </div>
+        
+        <ul class="navbar-nav">
+            <li><a href="#" onclick="navigateTo('reading1')" id="nav-reading1" class="active"><i class="fas fa-book"></i> Reading 1</a></li>
+            <li><a href="#" onclick="navigateTo('reading2')" id="nav-reading2"><i class="fas fa-book"></i> Reading 2</a></li>
+            <li><a href="#" onclick="navigateTo('reading3')" id="nav-reading3"><i class="fas fa-book"></i> Reading 3</a></li>
+        </ul>
 
-<div class="container">
-    <div class="panel left-panel">
-        <div id="reading-1-2" class="reading-content part-content">
-            <div id="text-p1" class="text-segment">
-                <h2>Metal giraffe arrives at school!</h2>
-                <p>The pupils of Grangetown High have been busy getting to know their newest and tallest classmate – a 7-metre-tall giraffe outside their school. The giraffe is a huge metal sculpture made by a local artist. The school’s headmaster noticed the sculpture in the artist’s garden as he drove past one day, and thought it would be perfect for his school. ‘I knew everyone would love it,’ he said, ‘because our basketball team is known as the Grangetown Giraffes, and they wear giraffes on their shirts. So I asked them to write a letter to the artist, asking how much it would cost to buy the giraffe. He was very kind and got it ready to deliver in six weeks – all for nothing! He arranged for it to arrive one Sunday morning, so that the pupils would see it when they got to school on the Monday – at that stage they had no idea that we were getting it.’</p>
-                <p>The artist, Tom Bennett, was a university professor of chemistry before he retired in 2006 and only took up metalwork a couple of years ago. But he had always been a keen artist. ‘I’ve always drawn pictures,’ he said. ‘I can even remember doing it on my first day at school – I drew a horse. I wanted to be the best horse picture ever, but I don’t think I succeeded!’</p>
-                <p>Tom’s first project using metal was a bicycle for two that he and his wife could go cycling together on. ‘It was the most uncomfortable bike ever created,’ admits Tom, ‘so I gave up making bicycles and went into sculpture instead.’</p>
-                <p>‘The first metal sculpture I ever did was of a lion, which now also lives at a school. It started out as a cat, but it just didn’t look right, so I made it into a lion and put it in my front garden. It soon began to attract attention from passers-by. Some small children wouldn’t walk past the lion unless they could have a turn sitting and playing on its back. I think children feel that my sculptures look like actual live animals, and that’s what I want.’</p>
-                <p>Meanwhile the pupils at Grangetown High are very happy with their new classmate. ‘We’re going to hold a competition to give it a proper name,’ said one girl. ‘Everyone likes the expression on its face, so perhaps that will give us some ideas.’</p>
-            </div>
-
-            <div id="text-p2" class="text-segment" style="display:none; border-top: 5px solid #eee; margin-top: 20px;">
-                <h2>Cycling in the countryside</h2>
-                <p>By Chris Jones, aged 14</p>
-                <p>Have you ever been cycling? This spring my older brother and I left the busy city and spent a long weekend cycling in the countryside. Our average speed was only around 14 kph, but that didn’t matter. We hadn’t come to break any speed records, or to get fit and healthy. All we wanted was some fresh air and a break from schoolwork. My bike only once went more than 30 kph, and that was when I raced my brother down the only hill on our route. We really enjoyed cycling along flat, traffic-free country paths. There was plenty of spring sunshine, but it was quite cold, especially in the mornings. We didn’t mind, though – and we soon warmed up as we rode along.</p>
-                <p>Our only problem was when my brakes started making a terrible noise. But I didn’t mind as it gave us an excuse to visit a café while a helpful bike mechanic had a look at it. That was one of the best things about our route: every few kilometres there was a village where we could find everything we needed. All the local people were really friendly, too. However, most places we stopped at served chips with all the meals, which soon got fairly boring. One night we were woken at 4 a.m. by a group of rugby fans singing loudly in the hotel corridor. We were tired and bad-tempered when we set off the next morning and very nearly got lost, but soon felt more cheerful when the sun came out. That’s what I like about cycling – it’s simple and it’s fun. If you’re looking for a short break that’s active and cheap, then cycling is a great choice!</p>
-            </div>
-
-            <div id="text-p3" class="text-segment" style="display:none;">
-                <h2>Negotiating a better salary package for your new job</h2>
-                <p>If you make it through the recruitment interview, a job offer may be just around the corner and you face having to talk about the nitty-gritty: your financial value. Although many graduate training schemes have set starting salaries, there are loads of other jobs where you’ll need to exercise your negotiating skills. If you’re offered a job, it’s because the organisation sees you as a valuable asset and you should try to set your level of remuneration accordingly. There are no general rules about how and when to conduct your negotiation but being sensitive to the culture of the organisation is essential. There are also some practical steps you can take to position yourself sensibly. Familiarise yourself with the company itself, as well as the range of salaries on offer. Doing careful research in this way prior to starting negotiations is very valuable. You can look at the range of packages offered for comparable jobs in adverts on the internet, or ask for advice from people you know professionally or personally. You could also approach a local Training and Enterprise Council. Finally, if you’re a member of a union, they will have information on acceptable salary ranges for your profession.</p>
-                <p>If the salary offered is less than you’d hoped for, you could negotiate an early pay review instead, say after the first six months. Ensure that the criteria are clearly set out though, and that they’re included in your contract. Make sure you check out the salary package, not just the number of zeroes on your payslip. You may find that the total package of pay and benefits raises the worth of the salary to an acceptable level. For instance, you may be offered private health cover, a non-contributory pension, a car to use for work purposes and/or significant bonuses. When bonuses are mentioned, you may want to discuss the basis on which they’re paid, so that you’re absolutely clear about the terms and conditions attached. When negotiating, be persuasive and consistent in your arguments but be prepared to agree to a compromise if you really want the job. If your negotiations are successful, ask for the agreed terms and conditions to be confirmed in writing ASAP.</p>
-            </div>
-
-            <div id="text-p4" class="text-segment" style="display:none;">
-                <h2>How to run a successful project</h2>
-                <p>A project manager’s main task is to bring a particular project to completion, both on time and within budget. There are many factors that can cause a project to veer off its tracks, but steps can be taken to ensure that your project experiences as little disruption as possible.</p>
-                <p><b>1. Prepare the framework:</b> If you get everything down in writing at the beginning of the project, you have an excellent foundation to build upon. Change is inevitable, but you have to maintain control. This is critical to avoid problems of ‘scope creep’, which is when the company paying for the project asks for ‘just one more little thing’ repeatedly, until the project becomes unmanageable.</p>
-                <p><b>2. Select the team:</b> Gather your human resources, and make sure that their skills align with their roles. This is an important first step: if you assign the wrong person to a task, you are reducing your chances of success. Make sure each team member is clear on what is expected from them and when. Encourage them to ask questions to clarify anything that may be uncertain, and to always come to you whenever something seems to be out of place or going wrong. Clear communication is critical. Make sure the whole team and the client company grasp the project’s limitations in terms of its achievable outcomes. You can finish a task successfully and on time as long as expectations are reasonable.</p>
-                <p><b>3. Staying on track:</b> How can you know if your project is going to be successful if you don’t have any way of measuring success? You will need interim milestones, especially for a long-term project, so that you can determine if you are staying on track or straying from the project’s goals.</p>
-                <p><b>4. Manage project risks:</b> Hopefully you have defined the more likely risks up front during the project preparation, so you should now put contingency plans in place for certain occurrences. If you can see when a risk is imminent, you can take preventive action to avoid it, but be ready to halt a project if the risk becomes unacceptable.</p>
-                <p><b>5. Evaluate the project:</b> Once a project has been completed, it’s important to write a report, even if it is only for internal purposes. You can pinpoint what went right or wrong, determine what could have been done differently, and establish the best practices for use in future undertakings.</p>
-            </div>
+        <div class="navbar-actions">
+            <button class="nav-btn" onclick="toggleZoom()"><i class="fas fa-search-plus"></i> Zoom</button>
+            <button class="nav-btn" onclick="printPage()"><i class="fas fa-print"></i> Print</button>
+            <button class="nav-btn" onclick="showModal('helpModal')"><i class="fas fa-info-circle"></i> Help</button>
+            <button class="nav-btn danger" onclick="showModal('exitModal')"><i class="fas fa-sign-out-alt"></i> Exit</button>
         </div>
     </div>
+</nav>
 
-    <div class="panel right-panel">
-        <div id="result-area"></div>
-
-        <div id="part1" class="part-section active">
-            <h2>Part 1 (Questions 1–10)</h2>
-            <p>Mark <b>A</b> if correct, <b>B</b> if incorrect.</p>
-            <div id="q-list-p1"></div>
+<!-- ===== READING PART 1 ===== -->
+<div id="reading1" class="reading-page active">
+    <div class="reading-layout">
+        <!-- LEFT PANE: TEXT -->
+        <div class="reading-pane">
+            <div class="reading-header">
+                <h2><i class="fas fa-tree"></i> READING PART 1</h2>
+                <div class="highlight-toolbar">
+                    <button class="highlight-btn" onclick="highlightText('highlight-blue')"><i class="fas fa-highlighter"></i> Blue</button>
+                    <button class="highlight-btn" onclick="highlightText('highlight-green')"><i class="fas fa-highlighter"></i> Green</button>
+                    <button class="highlight-btn" onclick="highlightText('highlight-pink')"><i class="fas fa-highlighter"></i> Pink</button>
+                    <button class="highlight-btn" onclick="removeHighlights()"><i class="fas fa-eraser"></i> Clear</button>
+                </div>
+            </div>
+            <div class="reading-pane-content">
+                <div id="reading1-text" class="reading-text"></div>
+            </div>
         </div>
 
-        <div id="part2" class="part-section">
-            <h2>Part 2 (Questions 11–15)</h2>
-            <p>Choose the correct letter A, B, C or D.</p>
-            <div id="q-list-p2"></div>
-        </div>
-
-        <div id="part3" class="part-section">
-            <h2>Part 3 (Questions 16–21)</h2>
-            <p>Choose <b>ONE WORD ONLY</b> from the text.</p>
-            <div id="q-list-p3"></div>
-        </div>
-
-        <div id="part4" class="part-section">
-            <h2>Part 4 (Questions 22–28)</h2>
-            <p>Choose <b>NO MORE THAN TWO WORDS</b> from the text.</p>
-            <div id="q-list-p4"></div>
+        <!-- RIGHT PANE: QUESTIONS -->
+        <div class="reading-pane">
+            <div class="questions-header">
+                <i class="fas fa-list-check"></i> Questions 1-6: Matching Headings
+            </div>
+            <div class="reading-pane-content">
+                <div id="reading1-questions" class="questions-container"></div>
+            </div>
         </div>
     </div>
 </div>
 
-<div class="nav-controls">
-    <button id="prevBtn" onclick="changePart(-1)" disabled>Previous</button>
-    <button id="nextBtn" onclick="changePart(1)">Next</button>
-    <button id="submitBtn" onclick="finishTest()" style="display:none; background-color: var(--correct-color);">Finish & Score</button>
+<!-- ===== READING PART 2 ===== -->
+<div id="reading2" class="reading-page">
+    <div class="reading-layout">
+        <!-- LEFT PANE: TEXT -->
+        <div class="reading-pane">
+            <div class="reading-header">
+                <h2><i class="fas fa-car"></i> READING PART 2</h2>
+                <div class="highlight-toolbar">
+                    <button class="highlight-btn" onclick="highlightText('highlight-blue')"><i class="fas fa-highlighter"></i> Blue</button>
+                    <button class="highlight-btn" onclick="highlightText('highlight-green')"><i class="fas fa-highlighter"></i> Green</button>
+                    <button class="highlight-btn" onclick="highlightText('highlight-pink')"><i class="fas fa-highlighter"></i> Pink</button>
+                    <button class="highlight-btn" onclick="removeHighlights()"><i class="fas fa-eraser"></i> Clear</button>
+                </div>
+            </div>
+            <div class="reading-pane-content">
+                <div id="reading2-text" class="reading-text"></div>
+            </div>
+        </div>
+
+        <!-- RIGHT PANE: QUESTIONS -->
+        <div class="reading-pane">
+            <div class="questions-header">
+                <i class="fas fa-list-check"></i> Questions 7-14: True/False/Not Given
+            </div>
+            <div class="reading-pane-content">
+                <div id="reading2-questions" class="questions-container"></div>
+            </div>
+        </div>
+    </div>
 </div>
 
+<!-- ===== READING PART 3 ===== -->
+<div id="reading3" class="reading-page">
+    <div class="reading-layout">
+        <!-- LEFT PANE: TEXT -->
+        <div class="reading-pane">
+            <div class="reading-header">
+                <h2><i class="fas fa-users"></i> READING PART 3</h2>
+                <div class="highlight-toolbar">
+                    <button class="highlight-btn" onclick="highlightText('highlight-blue')"><i class="fas fa-highlighter"></i> Blue</button>
+                    <button class="highlight-btn" onclick="highlightText('highlight-green')"><i class="fas fa-highlighter"></i> Green</button>
+                    <button class="highlight-btn" onclick="highlightText('highlight-pink')"><i class="fas fa-highlighter"></i> Pink</button>
+                    <button class="highlight-btn" onclick="removeHighlights()"><i class="fas fa-eraser"></i> Clear</button>
+                </div>
+            </div>
+            <div class="reading-pane-content">
+                <div id="reading3-text" class="reading-text"></div>
+            </div>
+        </div>
+
+        <!-- RIGHT PANE: QUESTIONS -->
+        <div class="reading-pane">
+            <div class="questions-header">
+                <i class="fas fa-list-check"></i> Questions 15-19: Matching People
+            </div>
+            <div class="reading-pane-content">
+                <div id="reading3-questions" class="questions-container"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ===== READING NAVIGATION BAR ===== -->
+<div class="reading-nav">
+    <button class="btn-secondary" id="nav-back" onclick="previousReading()"><i class="fas fa-arrow-left"></i> Previous</button>
+    <button class="btn-success" id="nav-submit" onclick="gradeAllReading()"><i class="fas fa-check-circle"></i> Submit All</button>
+    <button class="btn-secondary" id="nav-next" onclick="nextReading()"><i class="fas fa-arrow-right"></i> Next</button>
+</div>
+
+<!-- ===== MODALS ===== -->
+<!-- Help Modal -->
+<div id="helpModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>How to Use This Test</h2>
+            <button class="modal-close" onclick="closeModal('helpModal')">&times;</button>
+        </div>
+        <div>
+            <h3><i class="fas fa-book"></i> Reading Sections</h3>
+            <p>This test has 3 reading parts with different question types.</p>
+            
+            <h3><i class="fas fa-tree"></i> Part 1: Kew Gardens</h3>
+            <p>Questions 1-6: Matching headings (A-H).</p>
+            
+            <h3><i class="fas fa-car"></i> Part 2: Park and Ride</h3>
+            <p>Questions 7-14: True/False/Not Given statements.</p>
+            
+            <h3><i class="fas fa-users"></i> Part 3: Local Activities</h3>
+            <p>Questions 15-19: Matching people to activities (A-H).</p>
+
+            <h3><i class="fas fa-highlighter"></i> Tools</h3>
+            <p>✓ Highlight text in 3 colors (Blue, Green, Pink)</p>
+            <p>✓ Clear all highlights with one click</p>
+            <p>✓ Zoom to enlarge text</p>
+            <p>✓ Print the test for offline practice</p>
+
+            <h3><i class="fas fa-desktop"></i> Split Screen</h3>
+            <p>Left side: Reading text | Right side: Questions</p>
+            <p>Both sides scroll independently.</p>
+
+            <div style="text-align: center; margin-top: 2rem;">
+                <button class="btn-primary" onclick="closeModal('helpModal')"><i class="fas fa-check"></i> Got it!</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Exit Modal -->
+<div id="exitModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Exit Test?</h2>
+            <button class="modal-close" onclick="closeModal('exitModal')">&times;</button>
+        </div>
+        <div>
+            <p style="margin-bottom: 1.5rem; font-size: 1.05rem;">Are you sure you want to exit? Your progress will be lost.</p>
+            <div style="display: flex; gap: 1rem;">
+                <button class="btn-danger" onclick="confirmExit()" style="flex: 1;"><i class="fas fa-sign-out-alt"></i> Yes, Exit</button>
+                <button class="btn-secondary" onclick="closeModal('exitModal')" style="flex: 1;"><i class="fas fa-arrow-left"></i> Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ===== SCRIPT ===== -->
 <script>
-    const answers = {
-        1: 'B', 2: 'A', 3: 'B', 4: 'B', 5: 'B', 6: 'A', 7: 'A', 8: 'A', 9: 'A', 10: 'B',
-        11: 'D', 12: 'C', 13: 'A', 14: 'B', 15: 'C',
-        16: 'asset', 17: 'culture', 18: 'internet', 19: 'union', 20: 'review', 21: 'compromise',
-        22: 'budget', 23: 'scope creep', 24: 'skills', 25: 'communication', 26: 'milestones', 27: 'plans', 28: 'report'
+    let currentReadingPart = 1;
+    let zoomLevel = 1;
+
+    // ===== READING DATA =====
+    const readingData = {
+        part1: {
+            text: `<p><strong>Summer activities at London's Kew Gardens</strong></p>
+                   <p><strong>A. Climb up for a special view</strong> - Our famous elevated walkway gives you a spectacular view of the whole garden from 18 metres above ground. It's a wonderful way to see how all the different parts of the garden are connected.</p>
+                   <p><strong>B. The Nash Conservatory Plant Collection</strong> - A fascinating exhibition of exotic plants from around the world, set inside our largest glasshouse. Experience the heat and humidity of the tropical rainforest as you wander through.</p>
+                   <p><strong>C. A world of biodiversity</strong> - Join our interactive tour to discover how butterflies, bees and birds interact with our plants. Learn why plants need insects and insects need plants.</p>
+                   <p><strong>D. An extraordinary evening experience</strong> - The Palm House comes alive at night with a special sound installation that plays hourly from 6pm to 9pm. Join us for dinner in our restaurant and enjoy the magical atmosphere.</p>
+                   <p><strong>E. Come and see your work here</strong> - Send us your garden photographs and we may exhibit them in our outdoor exhibition space. Your pictures could inspire thousands of visitors!</p>
+                   <p><strong>F. Young explorers discover plant secrets</strong> - A special learning space where children can investigate different parts of plants, from roots to flowers, and understand what each part does.</p>
+                   <p><strong>G. What is it that keeps us alive?</strong> - Our new educational display explains the crucial role plants play in our survival. You'll discover why we need plants for food, medicine, oxygen and much more.</p>
+                   <p><strong>H. Visit our latest botanical art collection</strong> - Beautiful paintings and sculptures celebrating the beauty of native British wildflowers. See why common flowers are just as beautiful as exotic species.</p>`,
+            questions: [
+                { q: "1. learning what all the different sections of a plant do", ans: "F" },
+                { q: "2. seeing art showing plants from a different part of the world", ans: "B" },
+                { q: "3. the possibility of having your work exhibited", ans: "E" },
+                { q: "4. learning about why human beings need plants", ans: "G" },
+                { q: "5. something that happens daily at the same times", ans: "D" },
+                { q: "6. learning about the relationship between various creatures, insects and plants", ans: "C" }
+            ]
+        },
+        part2: {
+            text: `<p><strong>City Park and Ride Service</strong></p>
+                   <p>The Park and Ride scheme offers an efficient way to travel to the city centre. We have six car parks located on the edges of the city, with buses running every 5-15 minutes during peak times.</p>
+                   <p><strong>Getting Started:</strong> Arriving at the car park is simple. Just drive in and park your car in any available space in the main car park section. Heavy goods vehicles are not permitted. Spaces are also available for cycles, motorcycles and scooters.</p>
+                   <p><strong>Tickets and Pricing:</strong> Tickets cost £3-5 depending on the time of day (cheaper during off-peak hours). Drivers should have the exact change, though they can also pay by card. Children under 16 travelling with a paying adult travel free, but unaccompanied children must pay half price.</p>
+                   <p><strong>Your Journey:</strong> The buses follow the main routes into the city and take about 20-30 minutes to reach the city centre. Passengers can see live updates about journey times on our website. Over 3 million passengers use the service each year.</p>
+                   <p><strong>Concessionary Passes:</strong> People with concessionary bus passes pay the full fare during peak hours (7am-10am, 4pm-7pm), but travel free during other times. You may need to provide evidence of your pass.</p>
+                   <p><strong>Safety and Support:</strong> All our staff are trained to help nervous passengers feel confident about using public transport for the first time. Our goal is to make the journey comfortable and stress-free for everyone.</p>`,
+            questions: [
+                { q: "7. This was one of the first UK cities to introduce a Park and Ride scheme.", type: "TFNG", ans: "NOT GIVEN" },
+                { q: "8. The amount of congestion in the city centre has fallen.", type: "TFNG", ans: "TRUE" },
+                { q: "9. There is a special section of the car park for heavy goods vehicles.", type: "TFNG", ans: "FALSE" },
+                { q: "10. Bus drivers do not give change so you must have the correct money for a ticket.", type: "TFNG", ans: "FALSE" },
+                { q: "11. Ticket prices vary depending on the time of day.", type: "TFNG", ans: "TRUE" },
+                { q: "12. Children under 16 travelling alone are allowed free travel.", type: "TFNG", ans: "FALSE" },
+                { q: "13. The space for cycles, motorcycles and scooters is close to the site office.", type: "TFNG", ans: "NOT GIVEN" },
+                { q: "14. People with concessionary bus passes must pay the full fare to travel at certain times.", type: "TFNG", ans: "TRUE" }
+            ]
+        },
+        part3: {
+            text: `<p><strong>Local Activities - Matching Names to Descriptions</strong></p>
+                   <p><strong>A. Friends Forever Drama Club</strong> - A community theatre group that meets every Wednesday evening. They perform plays and musicals for local audiences. Ages 16-40. Requires no previous experience.</p>
+                   <p><strong>B. New Parents Support Group</strong> - Meet other parents with young children. Monthly meetings with guest speakers on parenting topics. Childcare provided. Free membership.</p>
+                   <p><strong>C. Environmental Action Team</strong> - Volunteers work on conservation projects like tree planting and wildlife habitat creation. Weekend projects. All fitness levels welcome.</p>
+                   <p><strong>D. Tech Coding for Seniors</strong> - Learn basic computer coding and programming. Classes for people over 50. No technical knowledge required. Very affordable fees.</p>
+                   <p><strong>E. Youth Summer Camp</strong> - Four-week residential program for teenagers. Activities include outdoor adventures, sports and team building. Applications close in March.</p>
+                   <p><strong>F. Community Storytelling Classes</strong> - Improve your public speaking and confidence by learning storytelling techniques. Weekly evening classes. Suitable for all ages.</p>
+                   <p><strong>G. Summer Volunteer Internship</strong> - Paid opportunity for adults 18-65 to work with local charities during summer break. Great for CV building. Applications open monthly.</p>`,
+            questions: [
+                { q: "15. Susie has a teenage son who enjoys outdoor activities and wants to meet other young people.", ans: "E" },
+                { q: "16. Gareth is 21 and a graduate looking for paid work experience to improve his career prospects.", ans: "G" },
+                { q: "17. Marcia would like to make new friends and do something creative in the evenings.", ans: "A" },
+                { q: "18. Ella is a new mum and wants to connect with other parents facing similar challenges.", ans: "B" },
+                { q: "19. Jacob is interested in helping the environment and spending time outdoors with volunteers.", ans: "C" }
+            ]
+        }
     };
 
-    const questionsP1 = [
-        "The headmaster wrote to the artist to ask about buying the sculpture for the school.",
-        "The school got the giraffe sculpture free of charge.",
-        "The schoolchildren were looking forward to the arrival of the giraffe.",
-        "The artist Tom Bennett started making metal objects while he was working at a university.",
-        "Tom thinks that he did an excellent drawing on his first day at school.",
-        "Tom only made one metal bicycle for himself and his wife.",
-        "Tom changed one of his metal sculptures into a different animal while he was making it.",
-        "Tom says that his lion sculpture was very popular with small children.",
-        "Tom intends his animal sculptures to appear realistic.",
-        "The pupils of Grangetown High have decided on a name for their giraffe sculpture."
-    ];
+    // ===== LOAD FUNCTIONS =====
+    function loadReadingPart(part) {
+        const data = readingData[`part${part}`];
+        document.getElementById(`reading${part}-text`).innerHTML = data.text;
 
-    const questionsP2 = [
-        { q: "What is Chris Jones doing in this text?", options: ["A describing the different places he saw while cycling", "B comparing cycling to other forms of exercise", "C suggesting places to stay on a cycling holiday", "D recommending cycling as a good type of holiday"] },
-        { q: "What do we find out about Chris’s bike?", options: ["A It wasn’t as good as his brother’s.", "B It was too old to go fast.", "C It needed attention at one point.", "D It had trouble going up hills."] },
-        { q: "Chris was pleased because", options: ["A he and his brother had chosen a good route.", "B he felt much healthier than before he began his trip.", "C he met other people who were keen on cycling.", "D he went away at the best time of year for cycling."] },
-        { q: "What did Chris dislike about his trip?", options: ["A breaking down", "B the food", "C the weather", "D getting lost"] },
-        { q: "What might Chris say in a postcard to a friend?", options: ["A \"I’m having a great holiday...\"", "B \"I’m having really fit...\"", "C \"I’m pleased to be away from cars...\"", "D \"I’m enjoying cycling...\""] }
-    ];
-
-    const questionsP3 = [
-        "16. When negotiating a salary, potential employees should take advantage of the company’s view of them as a useful __________",
-        "17. When negotiating a salary it is important to be aware of the company’s particular __________",
-        "18. Some people use the __________ to monitor salaries offered for similar positions.",
-        "19. People who belong to a __________ can ask for recommendations on what is the norm for payment in their field.",
-        "20. Some people try to arrange for a __________ of their salary to be carried out after an initial period.",
-        "21. It is important to be willing to accept a __________ if the negotiations are getting nowhere."
-    ];
-
-    const questionsP4 = [
-        "22. Bear in mind that your aim should be to keep to both the agreed deadline and the __________ for the project.",
-        "23. Fix the details at the start to prevent what is called __________ — the client asking for more and more.",
-        "24. Choose the team members wisely so that their __________ match the duties you want them to take on.",
-        "25. Promote good __________ at all times so everyone knows what you require of them.",
-        "26. Make sure __________ are set so you can check whether the project is running to schedule.",
-        "27. Prepare __________ which can be activated if things go wrong on the project.",
-        "28. Once the project is over, produce a __________ outlining its strengths and weaknesses for future reference."
-    ];
-
-    let currentPart = 1;
-
-    function init() {
-        // Render P1
-        let p1Html = '';
-        questionsP1.forEach((q, i) => {
-            p1Html += `<div class="question-block" id="block-${i+1}">
-                <p>${i+1}. ${q}</p>
-                <div class="options">
-                    <label><input type="radio" name="q${i+1}" value="A"> A</label>
-                    <label><input type="radio" name="q${i+1}" value="B"> B</label>
-                </div>
-            </div>`;
-        });
-        document.getElementById('q-list-p1').innerHTML = p1Html;
-
-        // Render P2
-        let p2Html = '';
-        questionsP2.forEach((item, i) => {
-            let n = i + 11;
-            p2Html += `<div class="question-block" id="block-${n}">
-                <p>${n}. ${item.q}</p>
-                <div class="options">
-                    ${item.options.map(opt => `<label><input type="radio" name="q${n}" value="${opt[0]}"> ${opt}</label>`).join('')}
-                </div>
-            </div>`;
-        });
-        document.getElementById('q-list-p2').innerHTML = p2Html;
-
-        // Render P3
-        let p3Html = '';
-        questionsP3.forEach((q, i) => {
-            let n = i + 16;
-            p3Html += `<div class="question-block" id="block-${n}">
-                <p>${q}</p>
-                <input type="text" name="q${n}" placeholder="Your answer...">
-            </div>`;
-        });
-        document.getElementById('q-list-p3').innerHTML = p3Html;
-
-        // Render P4
-        let p4Html = '';
-        questionsP4.forEach((q, i) => {
-            let n = i + 22;
-            p4Html += `<div class="question-block" id="block-${n}">
-                <p>${q}</p>
-                <input type="text" name="q${n}" placeholder="Your answer...">
-            </div>`;
-        });
-        document.getElementById('q-list-p4').innerHTML = p4Html;
-    }
-
-    function changePart(step) {
-        document.getElementById(`part${currentPart}`).classList.remove('active');
+        const container = document.getElementById(`reading${part}-questions`);
         
-        currentPart += step;
-        
-        document.getElementById(`part${currentPart}`).classList.add('active');
-        document.getElementById('current-part-num').innerText = currentPart;
-
-        // Update Text Display based on Part
-        document.querySelectorAll('.text-segment').forEach(el => el.style.display = 'none');
-        if (currentPart === 1 || currentPart === 2) {
-            document.getElementById('text-p1').style.display = 'block';
-            if (currentPart === 2) document.getElementById('text-p2').style.display = 'block';
-        } else if (currentPart === 3) {
-            document.getElementById('text-p3').style.display = 'block';
-        } else if (currentPart === 4) {
-            document.getElementById('text-p4').style.display = 'block';
-        }
-
-        // Nav buttons
-        document.getElementById('prevBtn').disabled = (currentPart === 1);
-        if (currentPart === 4) {
-            document.getElementById('nextBtn').style.display = 'none';
-            document.getElementById('submitBtn').style.display = 'inline-block';
-        } else {
-            document.getElementById('nextBtn').style.display = 'inline-block';
-            document.getElementById('submitBtn').style.display = 'none';
+        if (part === 1) {
+            // Matching headings
+            data.questions.forEach((item, idx) => {
+                const html = `<div class="question-item">
+                    <p>${item.q}</p>
+                    <input type="text" id="r${part}-${idx}" placeholder="Enter A-H" maxlength="1">
+                </div>`;
+                container.innerHTML += html;
+            });
+        } else if (part === 2) {
+            // True/False/Not Given
+            data.questions.forEach((item, idx) => {
+                const html = `<div class="question-item">
+                    <p>${item.q}</p>
+                    <select id="r${part}-${idx}">
+                        <option value="">-- Choose --</option>
+                        <option value="TRUE">TRUE</option>
+                        <option value="FALSE">FALSE</option>
+                        <option value="NOT GIVEN">NOT GIVEN</option>
+                    </select>
+                </div>`;
+                container.innerHTML += html;
+            });
+        } else if (part === 3) {
+            // Matching people
+            data.questions.forEach((item, idx) => {
+                const html = `<div class="question-item">
+                    <p>${item.q}</p>
+                    <input type="text" id="r${part}-${idx}" placeholder="Enter A-G" maxlength="1">
+                </div>`;
+                container.innerHTML += html;
+            });
         }
     }
 
-    function finishTest() {
-    let score = 0;
-    let total = 28; // Tổng số câu hỏi của bài Reading 1 
+    // ===== GRADE FUNCTIONS =====
+    function gradeReadingPart(part) {
+        const data = readingData[`part${part}`];
+        let score = 0;
 
-    // 1. VÒNG LẶP CHẤM ĐIỂM VÀ HIỂN THỊ ĐÁP ÁN
-    for (let i = 1; i <= total; i++) {
-        let userAns = '';
-        const block = document.getElementById(`block-${i}`);
-        
-        // Lấy giá trị input từ học sinh
-        if (i <= 15) {
-            const radio = document.querySelector(`input[name="q${i}"]:checked`);
-            userAns = radio ? radio.value : '';
-        } else {
-            userAns = document.querySelector(`input[name="q${i}"]`).value.trim().toLowerCase();
-        }
+        data.questions.forEach((item, idx) => {
+            const id = `r${part}-${idx}`;
+            let element = document.getElementById(id);
+            let userAnswer = element.value.trim().toUpperCase();
 
-        const correctAns = answers[i].toLowerCase(); // answers lấy từ Answer Key 
-
-        if (userAns === correctAns) {
-            score++;
-            block.style.borderLeft = "10px solid var(--correct-color)";
-        } else {
-            // Đổi màu viền và màu chữ của câu sai thành đỏ
-            block.style.borderLeft = "10px solid var(--wrong-color)";
-            block.classList.add('wrong-answer');
+            const parentItem = element.closest('.question-item');
             
-            // Hiển thị đáp án đúng bên cạnh câu học sinh làm sai 
-            const hint = document.createElement('span');
-            hint.className = 'correct-hint';
-            hint.innerText = ` (Đúng là: ${answers[i]})`;
-            block.appendChild(hint);
+            if (parentItem) {
+                parentItem.classList.remove('correct-answer', 'wrong-answer');
+                
+                let isCorrect = userAnswer === item.ans;
+
+                if (isCorrect) {
+                    score++;
+                    parentItem.classList.add('correct-answer');
+                    if (!parentItem.querySelector('.answer-hint')) {
+                        parentItem.innerHTML += `<span class="answer-hint correct"><i class="fas fa-check"></i> Correct!</span>`;
+                    }
+                } else if (userAnswer) {
+                    parentItem.classList.add('wrong-answer');
+                    if (!parentItem.querySelector('.answer-hint')) {
+                        parentItem.innerHTML += `<span class="answer-hint wrong"><i class="fas fa-times"></i> Correct: <strong>${item.ans}</strong></span>`;
+                    }
+                }
+            }
+        });
+
+        return score;
+    }
+
+    function gradeAllReading() {
+        const scores = {
+            part1: gradeReadingPart(1),
+            part2: gradeReadingPart(2),
+            part3: gradeReadingPart(3)
+        };
+
+        const total = scores.part1 + scores.part2 + scores.part3;
+        const maxScore = readingData.part1.questions.length + readingData.part2.questions.length + readingData.part3.questions.length;
+        const percentage = Math.round((total / maxScore) * 100);
+
+        let bandScore = 9;
+        if (percentage < 60) bandScore = 5;
+        else if (percentage < 70) bandScore = 6;
+        else if (percentage < 80) bandScore = 7;
+        else if (percentage < 90) bandScore = 8;
+        else if (percentage < 95) bandScore = 8.5;
+
+        alert(`✅ TEST COMPLETED!\n\n📊 RESULTS:\nPart 1: ${scores.part1}/6\nPart 2: ${scores.part2}/8\nPart 3: ${scores.part3}/5\n\nTotal: ${total}/${maxScore}\nPercentage: ${percentage}%\nBand Score: ${bandScore}`);
+    }
+
+    // ===== NAVIGATION =====
+    function navigateTo(page) {
+        const partNum = parseInt(page.slice(-1));
+        currentReadingPart = partNum;
+
+        document.querySelectorAll('.reading-page').forEach(p => p.classList.remove('active'));
+        document.getElementById(page).classList.add('active');
+
+        document.querySelectorAll('.navbar-nav a').forEach(a => a.classList.remove('active'));
+        document.getElementById(`nav-reading${partNum}`).classList.add('active');
+
+        updateNavButtons();
+    }
+
+    function nextReading() {
+        if (currentReadingPart < 3) {
+            currentReadingPart++;
+            navigateTo(`reading${currentReadingPart}`);
         }
     }
 
-    // 2. GỬI ĐIỂM VỀ GOOGLE SHEETS (Yêu cầu Web App URL từ Apps Script)
-    const studentName = sessionStorage.getItem('studentName') || "Học sinh ẩn danh";
-    const className = sessionStorage.getItem('className') || "Chưa rõ lớp";
-    const taskTitle = sessionStorage.getItem('taskTitle') || "Reading 1";
-    const webAppUrl = 'https://script.google.com/macros/s/AKfycbyWB-EKtC3yxDAgjDcZhyJT6DRZYgKnNt0o3CendYaoXCd6-O68q78fG5EI9qhlxavZZQ/exec'; // Thay link của bạn vào đây
+    function previousReading() {
+        if (currentReadingPart > 1) {
+            currentReadingPart--;
+            navigateTo(`reading${currentReadingPart}`);
+        }
+    }
 
-    fetch(webAppUrl, {
-        method: 'POST',
-        mode: 'no-cors', // Tránh lỗi CORS khi chạy file HTML cục bộ
-        body: JSON.stringify({
-            name: studentName,
-            className: className,
-            task: taskTitle,
-            score: score + "/" + total
-        })
-    }).then(() => {
-        console.log("Dữ liệu đã được gửi thành công!");
-    }).catch(err => {
-        console.error("Lỗi khi gửi dữ liệu:", err);
+    function updateNavButtons() {
+        const prevBtn = document.getElementById('nav-back');
+        const nextBtn = document.getElementById('nav-next');
+        
+        prevBtn.disabled = currentReadingPart === 1;
+        nextBtn.disabled = currentReadingPart === 3;
+    }
+
+    // ===== UTILITY FUNCTIONS =====
+    function toggleZoom() {
+        zoomLevel = zoomLevel === 1 ? 1.2 : 1;
+        document.body.style.fontSize = (16 * zoomLevel) + 'px';
+    }
+
+    function printPage() {
+        window.print();
+    }
+
+    function highlightText(color) {
+        const selection = window.getSelection();
+        if (selection.toString()) {
+            const range = selection.getRangeAt(0);
+            const span = document.createElement('span');
+            span.className = color;
+            range.surroundContents(span);
+        }
+    }
+
+    function removeHighlights() {
+        document.querySelectorAll('[class*="highlight-"]').forEach(el => {
+            const parent = el.parentNode;
+            while (el.firstChild) parent.insertBefore(el.firstChild, el);
+            parent.removeChild(el);
+        });
+    }
+
+    function showModal(id) {
+        document.getElementById(id).classList.add('show');
+    }
+
+    function closeModal(id) {
+        document.getElementById(id).classList.remove('show');
+    }
+
+    function confirmExit() {
+        if (confirm('Exit test? Your progress will be lost.')) {
+            window.location.href = 'about:blank';
+        }
+    }
+
+    // ===== INITIALIZE =====
+    document.addEventListener('DOMContentLoaded', function() {
+        loadReadingPart(1);
+        loadReadingPart(2);
+        loadReadingPart(3);
+        updateNavButtons();
     });
 
-    // 3. HIỂN THỊ TẤT CẢ CÁC PHẦN ĐỂ HỌC SINH XEM LẠI
-    document.querySelectorAll('.part-section').forEach(p => p.style.display = 'block');
-    document.querySelectorAll('.text-segment').forEach(p => p.style.display = 'block');
-    
-    // Hiển thị tổng số câu đúng lên màn hình 
-    const resArea = document.getElementById('result-area');
-    resArea.style.display = 'block';
-    resArea.innerHTML = `Kết quả của ${studentName}: ${score} / ${total} câu đúng.`;
-    
-    // Cuộn lên đầu trang và ẩn nút điều hướng
-    window.scrollTo(0, 0);
-    document.querySelector('.nav-controls').style.display = 'none';
-    document.getElementById('part-title').innerText = "Kết Quả Bài Làm";
-}
-    
-
-    init();
+    // Close modal when clicking outside
+    window.onclick = function(event) {
+        if (event.target.classList.contains('modal')) {
+            event.target.classList.remove('show');
+        }
+    }
 </script>
 
 </body>

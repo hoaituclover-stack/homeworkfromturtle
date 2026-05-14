@@ -1,0 +1,1257 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IELTS Reading B1.2 - Dolphin Trip & Business Presentation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6366f1;
+            --secondary: #8b5cf6;
+            --accent: #06b6d4;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --light: #f0f9ff;
+            --lighter: #f8fafc;
+            --border: #cbd5e1;
+            --text: #1e293b;
+        }
+
+        body {
+            font-family: 'Fredoka', sans-serif;
+            background: linear-gradient(135deg, #f0f9ff 0%, #f3f4f6 100%);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* ===== NAVBAR ===== */
+        nav.navbar {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 1.2rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.3);
+        }
+
+        .navbar-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            letter-spacing: -0.5px;
+        }
+
+        .navbar-brand i {
+            font-size: 1.8rem;
+        }
+
+        .navbar-nav {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .navbar-nav a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .navbar-nav a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .navbar-nav a.active {
+            background: rgba(255, 255, 255, 0.3);
+            color: white;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+        }
+
+        .navbar-actions {
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 0.6rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .nav-btn.danger:hover {
+            background: var(--danger);
+            border-color: var(--danger);
+        }
+
+        /* ===== PAGE STRUCTURE ===== */
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        .page-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 1.5rem;
+        }
+
+        /* ===== READING PAGES ===== */
+        .reading-page {
+            display: none;
+            height: calc(100vh - 85px);
+            overflow: hidden;
+        }
+
+        .reading-page.active {
+            display: flex;
+        }
+
+        .reading-header {
+            position: sticky;
+            top: 0;
+            background: white;
+            z-index: 100;
+            padding: 1.2rem 1.5rem;
+            border-bottom: 3px solid var(--accent);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            animation: slideDown 0.3s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .reading-header h2 {
+            color: var(--primary);
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .reading-header h2 i {
+            font-size: 1.5rem;
+            color: var(--secondary);
+        }
+
+        .highlight-toolbar {
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            background: linear-gradient(135deg, #f0f9ff 0%, #fef3c7 100%);
+            padding: 0.8rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .highlight-btn {
+            padding: 0.5rem 1rem;
+            background: white;
+            border: 2px solid var(--accent);
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .highlight-btn:hover {
+            background: var(--accent);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3);
+        }
+
+        .highlight-blue { background-color: #bfdbfe !important; }
+        .highlight-green { background-color: #bbf7d0 !important; }
+        .highlight-pink { background-color: #fbcfe8 !important; }
+
+        /* ===== SPLIT SCREEN LAYOUT ===== */
+        .reading-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            width: 100%;
+            height: 100%;
+            gap: 0;
+        }
+
+        .reading-pane {
+            background: white;
+            border-right: 3px solid var(--border);
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .reading-pane:last-child {
+            border-right: none;
+            border-left: 3px solid var(--border);
+        }
+
+        .reading-pane-content {
+            padding: 2rem;
+            flex: 1;
+        }
+
+        .reading-text {
+            color: var(--text);
+            line-height: 2;
+            font-size: 1.05rem;
+        }
+
+        .reading-text p {
+            margin-bottom: 1.3rem;
+            text-align: justify;
+            letter-spacing: 0.3px;
+        }
+
+        .reading-text strong {
+            color: var(--secondary);
+            font-weight: 600;
+        }
+
+        .questions-header {
+            background: linear-gradient(135deg, #dbeafe 0%, #e9d5ff 100%);
+            padding: 1.2rem;
+            padding-top: 1.5rem;
+            border-bottom: 2px solid var(--accent);
+            text-align: center;
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+        }
+
+        .questions-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .question-item {
+            background: linear-gradient(135deg, #f0f9ff 0%, #f3f4f6 100%);
+            border-left: 5px solid var(--accent);
+            padding: 1.2rem;
+            border-radius: 10px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .question-item:hover {
+            background: linear-gradient(135deg, #e0f2fe 0%, #e9e5ff 100%);
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.15);
+            transform: translateX(4px);
+        }
+
+        .question-item p {
+            margin: 0 0 0.8rem 0;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--text);
+        }
+
+        .question-item input[type="text"],
+        .question-item input[type="radio"],
+        .question-item select {
+            padding: 0.7rem 0.9rem;
+            border: 2px solid var(--accent);
+            border-radius: 6px;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .question-item input[type="text"] {
+            width: 100%;
+            max-width: 180px;
+        }
+
+        .question-item input[type="text"]:focus,
+        .question-item select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+            background-color: #f0f9ff;
+        }
+
+        .question-item input[type="radio"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: var(--accent);
+        }
+
+        .option-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 6px;
+            transition: 0.3s;
+            margin-bottom: 0.5rem;
+        }
+
+        .option-label:hover {
+            background: rgba(6, 182, 212, 0.1);
+        }
+
+        /* ===== ANSWER FEEDBACK ===== */
+        .correct-answer {
+            background: #d1fae5 !important;
+            border-left-color: var(--success) !important;
+        }
+
+        .correct-answer input,
+        .correct-answer select {
+            border-color: var(--success) !important;
+            background: #ecfdf5 !important;
+        }
+
+        .wrong-answer {
+            background: #fee2e2 !important;
+            border-left-color: var(--danger) !important;
+        }
+
+        .wrong-answer input,
+        .wrong-answer select {
+            border-color: var(--danger) !important;
+            background: #fef2f2 !important;
+        }
+
+        .answer-hint {
+            display: block;
+            font-size: 0.85rem;
+            margin-top: 0.6rem;
+            font-weight: 600;
+            border-radius: 4px;
+            padding: 0.5rem 0.8rem;
+        }
+
+        .answer-hint.correct {
+            color: var(--success);
+            background: #ecfdf5;
+        }
+
+        .answer-hint.wrong {
+            color: var(--danger);
+            background: #fef2f2;
+        }
+
+        /* ===== SCORE BOX ===== */
+        .score-box {
+            background: linear-gradient(135deg, #dbeafe 0%, #ddd6fe 100%);
+            border: 2px solid var(--primary);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem;
+            text-align: center;
+            font-weight: 700;
+            color: var(--primary);
+            display: none;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        .score-box.show {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .score-box h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .score-details {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .score-item {
+            background: white;
+            padding: 1rem;
+            border-radius: 10px;
+            border: 2px solid var(--accent);
+        }
+
+        .score-item .value {
+            font-size: 1.8rem;
+            color: var(--secondary);
+            font-weight: 700;
+        }
+
+        .score-item .label {
+            color: #64748b;
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+        }
+
+        /* ===== BUTTONS ===== */
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            padding: 2rem;
+            padding-top: 0;
+        }
+
+        button {
+            padding: 0.9rem 1.8rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            font-family: 'Fredoka', sans-serif;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, var(--success) 0%, #059669 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-success:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            box-shadow: 0 2px 10px rgba(99, 102, 241, 0.1);
+        }
+
+        .btn-secondary:hover:not(:disabled) {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.3);
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+        }
+
+        .btn-danger:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
+        }
+
+        /* ===== NAVIGATION BAR ===== */
+        .reading-nav {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border-top: 3px solid var(--accent);
+            padding: 1.2rem 2rem;
+            display: none;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            box-shadow: 0 -4px 20px rgba(99, 102, 241, 0.3);
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 500;
+        }
+
+        .reading-nav.show {
+            display: flex;
+        }
+
+        /* ===== MODAL ===== */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.show {
+            display: flex;
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.3s;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid var(--accent);
+        }
+
+        .modal-header h2 {
+            color: var(--primary);
+            margin: 0;
+            font-size: 1.4rem;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: var(--primary);
+            padding: 0;
+            width: auto;
+            height: auto;
+            transition: 0.3s;
+        }
+
+        .modal-close:hover {
+            color: var(--danger);
+            transform: rotate(90deg);
+        }
+
+        .modal-content p {
+            margin-bottom: 1rem;
+            line-height: 1.7;
+            color: var(--text);
+        }
+
+        .modal-content h3 {
+            color: var(--primary);
+            margin-top: 1.5rem;
+            margin-bottom: 0.8rem;
+            font-weight: 700;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .reading-layout {
+                grid-template-columns: 1fr;
+                height: auto;
+            }
+
+            .reading-page.active {
+                display: block;
+                height: auto;
+            }
+
+            .reading-pane {
+                border-right: none;
+                border-bottom: 3px solid var(--border);
+                height: auto;
+                overflow: visible;
+            }
+
+            .reading-pane:last-child {
+                border-left: none;
+                border-top: 3px solid var(--border);
+            }
+
+            .reading-nav {
+                position: sticky;
+                bottom: auto;
+                left: auto;
+                right: auto;
+            }
+
+            .score-details {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem;
+            }
+
+            .page-container {
+                padding: 1rem;
+            }
+
+            .reading-pane-content {
+                padding: 1.5rem;
+            }
+
+            button {
+                width: 100%;
+            }
+
+            .question-item input[type="text"] {
+                width: 100%;
+                max-width: none;
+            }
+
+            .navbar-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .navbar-nav {
+                flex-direction: column;
+                gap: 0.5rem;
+                width: 100%;
+            }
+
+            .navbar-nav a {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+
+<!-- ===== NAVBAR ===== -->
+<nav class="navbar">
+    <div class="navbar-container">
+        <div class="navbar-brand">
+            <i class="fas fa-book-open"></i>
+            <span>IELTS Reading B1.2</span>
+        </div>
+        
+        <ul class="navbar-nav">
+            <li><a href="#" onclick="navigateTo('reading1')" id="nav-reading1" class="active"><i class="fas fa-book"></i> Reading 1</a></li>
+            <li><a href="#" onclick="navigateTo('reading2')" id="nav-reading2"><i class="fas fa-book"></i> Reading 2</a></li>
+            <li><a href="#" onclick="navigateTo('reading3')" id="nav-reading3"><i class="fas fa-book"></i> Reading 3</a></li>
+        </ul>
+
+        <div class="navbar-actions">
+            <button class="nav-btn" onclick="toggleZoom()"><i class="fas fa-search-plus"></i> Zoom</button>
+            <button class="nav-btn" onclick="printPage()"><i class="fas fa-print"></i> Print</button>
+            <button class="nav-btn" onclick="showModal('helpModal')"><i class="fas fa-info-circle"></i> Help</button>
+            <button class="nav-btn danger" onclick="showModal('exitModal')"><i class="fas fa-sign-out-alt"></i> Exit</button>
+        </div>
+    </div>
+</nav>
+
+<!-- ===== READING PART 1 ===== -->
+<div id="reading1" class="page reading-page active">
+    <div class="reading-layout">
+        <!-- LEFT PANE: TEXT -->
+        <div class="reading-pane">
+            <div class="reading-header">
+                <h2><i class="fas fa-waves"></i> READING PART 1</h2>
+                <div class="highlight-toolbar">
+                    <button class="highlight-btn" onclick="highlightText('highlight-blue')"><i class="fas fa-highlighter"></i> Blue</button>
+                    <button class="highlight-btn" onclick="highlightText('highlight-green')"><i class="fas fa-highlighter"></i> Green</button>
+                    <button class="highlight-btn" onclick="highlightText('highlight-pink')"><i class="fas fa-highlighter"></i> Pink</button>
+                    <button class="highlight-btn" onclick="removeHighlights()"><i class="fas fa-eraser"></i> Clear</button>
+                </div>
+            </div>
+            <div class="reading-pane-content">
+                <div id="reading1-text" class="reading-text"></div>
+            </div>
+        </div>
+
+        <!-- RIGHT PANE: QUESTIONS -->
+        <div class="reading-pane">
+            <div class="questions-header">
+                <i class="fas fa-list-check"></i> Questions 1-10: TRUE or FALSE
+            </div>
+            <div class="reading-pane-content">
+                <div id="reading1-questions" class="questions-container"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ===== READING PART 2 ===== -->
+<div id="reading2" class="page reading-page">
+    <div class="reading-layout">
+        <!-- LEFT PANE: TEXT -->
+        <div class="reading-pane">
+            <div class="reading-header">
+                <h2><i class="fas fa-film"></i> READING PART 2</h2>
+                <div class="highlight-toolbar">
+                    <button class="highlight-btn" onclick="highlightText('highlight-blue')"><i class="fas fa-highlighter"></i> Blue</button>
+                    <button class="highlight-btn" onclick="highlightText('highlight-green')"><i class="fas fa-highlighter"></i> Green</button>
+                    <button class="highlight-btn" onclick="highlightText('highlight-pink')"><i class="fas fa-highlighter"></i> Pink</button>
+                    <button class="highlight-btn" onclick="removeHighlights()"><i class="fas fa-eraser"></i> Clear</button>
+                </div>
+            </div>
+            <div class="reading-pane-content">
+                <div id="reading2-text" class="reading-text"></div>
+            </div>
+        </div>
+
+        <!-- RIGHT PANE: QUESTIONS -->
+        <div class="reading-pane">
+            <div class="questions-header">
+                <i class="fas fa-list-check"></i> Questions 11-15: Multiple Choice
+            </div>
+            <div class="reading-pane-content">
+                <div id="reading2-questions" class="questions-container"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ===== READING PART 3 ===== -->
+<div id="reading3" class="page reading-page">
+    <div class="reading-layout">
+        <!-- LEFT PANE: TEXT -->
+        <div class="reading-pane">
+            <div class="reading-header">
+                <h2><i class="fas fa-presentation"></i> READING PART 3</h2>
+                <div class="highlight-toolbar">
+                    <button class="highlight-btn" onclick="highlightText('highlight-blue')"><i class="fas fa-highlighter"></i> Blue</button>
+                    <button class="highlight-btn" onclick="highlightText('highlight-green')"><i class="fas fa-highlighter"></i> Green</button>
+                    <button class="highlight-btn" onclick="highlightText('highlight-pink')"><i class="fas fa-highlighter"></i> Pink</button>
+                    <button class="highlight-btn" onclick="removeHighlights()"><i class="fas fa-eraser"></i> Clear</button>
+                </div>
+            </div>
+            <div class="reading-pane-content">
+                <div id="reading3-text" class="reading-text"></div>
+            </div>
+        </div>
+
+        <!-- RIGHT PANE: QUESTIONS -->
+        <div class="reading-pane">
+            <div class="questions-header">
+                <i class="fas fa-list-check"></i> Questions 16-28: Fill in the Blanks
+            </div>
+            <div class="reading-pane-content">
+                <div id="reading3-questions" class="questions-container"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ===== READING NAVIGATION BAR ===== -->
+<div class="reading-nav show">
+    <button class="btn-secondary" id="nav-back" onclick="previousReading()"><i class="fas fa-arrow-left"></i> Previous</button>
+    <button class="btn-success" id="nav-submit" onclick="gradeAllReading()"><i class="fas fa-check-circle"></i> Submit All</button>
+    <button class="btn-secondary" id="nav-next" onclick="nextReading()"><i class="fas fa-arrow-right"></i> Next</button>
+</div>
+
+<!-- ===== MODALS ===== -->
+<!-- Help Modal -->
+<div id="helpModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>How to Use This Test</h2>
+            <button class="modal-close" onclick="closeModal('helpModal')">&times;</button>
+        </div>
+        <div>
+            <h3><i class="fas fa-book"></i> Reading Sections</h3>
+            <p>This test has 3 reading parts with different question types.</p>
+            
+            <h3><i class="fas fa-waves"></i> Part 1: Dolphin Trip</h3>
+            <p>Questions 1-10: True/False statements about the text.</p>
+            
+            <h3><i class="fas fa-film"></i> Part 2: One to Watch</h3>
+            <p>Questions 11-15: Multiple choice (A, B, C, D).</p>
+            
+            <h3><i class="fas fa-presentation"></i> Part 3: Business Presentation</h3>
+            <p>Questions 16-28: Fill in blanks (max 2 words).</p>
+
+            <h3><i class="fas fa-highlighter"></i> Tools</h3>
+            <p>✓ Highlight text in 3 colors (Blue, Green, Pink)</p>
+            <p>✓ Clear all highlights with one click</p>
+            <p>✓ Zoom to enlarge text</p>
+            <p>✓ Print the test for offline practice</p>
+
+            <h3><i class="fas fa-desktop"></i> Split Screen</h3>
+            <p>Left side: Reading text | Right side: Questions</p>
+            <p>Both sides scroll independently.</p>
+
+            <div style="text-align: center; margin-top: 2rem;">
+                <button class="btn-primary" onclick="closeModal('helpModal')"><i class="fas fa-check"></i> Got it!</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Exit Modal -->
+<div id="exitModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Exit Test?</h2>
+            <button class="modal-close" onclick="closeModal('exitModal')">&times;</button>
+        </div>
+        <div>
+            <p style="margin-bottom: 1.5rem; font-size: 1.05rem;">Are you sure you want to exit? Your progress will be lost.</p>
+            <div class="btn-group">
+                <button class="btn-danger" onclick="confirmExit()"><i class="fas fa-sign-out-alt"></i> Yes, Exit</button>
+                <button class="btn-secondary" onclick="closeModal('exitModal')"><i class="fas fa-arrow-left"></i> Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ===== SCRIPT ===== -->
+<script>
+    let currentReadingPart = 1;
+    let zoomLevel = 1;
+
+    // ===== READING DATA =====
+    const readingData = {
+        part1: {
+            title: "DOLPHIN TRIP",
+            author: "By Paul Hannan",
+            text: `<p><strong>DOLPHIN TRIP</strong></p>
+                   <p><strong>By Paul Hannan</strong></p>
+                   <p>My family have always been fans of New Zealand – my mum comes from the capital – so we saved up and went for a holiday there. We started with a week in the city she grew up in. After that, we toured around for a while before ending up by chance in Kaikoura, a small town on the coast. The first evening it seemed a rather dull place, but the next day I remembered what I'd read about it – that it was often possible to see dolphins and whales there! I'll always think of Kaikoura as the place where I finally achieved my lifelong ambition – to swim with wild dolphins.</p>
+                   <p>My family and I set off on a dolphin trip on a cold, grey day with a number of other people on a small boat. However, the sky soon turned blue, and we raced across the waves in the sunshine until we finally reached the place where we were supposed to go swimming. To my surprise, this was more than 40 Km from the land. I was quite cold by this time, and really starting to wonder why my family had made me come all the way out there, when suddenly someone shouted 'Dolphins!'.</p>
+                   <p>All I could see were fins everywhere – there were more than a hundred dolphins, all swimming towards our boat! Many of them were jumping around in the water as if they were asking us to come and play. I put on my snorkel and jumped into the sea. Everywhere I looked, all I could see was dolphins, swimming under me and round me. Then I remembered the guide had told us to make sounds in the water to attract them. So I did and actually heard them making similar sounds, as if they were trying to answer me. I even made eye contact with one dolphin, and watched it carefully as I swam around in a circle. Amazingly, the dolphin almost followed me, but then changed its mind, although it kept eye contact with me all the time. It really made me realise how intelligent and beautiful these creatures are.</p>
+                   <p>Then after an hour of swimming the guides called us to get back onto the boat. Although I had enjoyed myself, I was keen to leave the water by then as I was very cold. As I got dry I noticed that everyone on board was smiling and I realised what a very special moment we'd had.</p>
+                   <p>I'll never forget that experience, and Kaikoura will always have a special place in my heart.</p>`,
+            questions: [
+                { q: "1. Paul has family connections with the place he first visited in New Zealand.", ans: "TRUE" },
+                { q: "2. Paul and his family chose to go to Kaikoura as part of their tour.", ans: "FALSE" },
+                { q: "3. As soon as Paul arrived in Kaikoura he knew he might see some dolphins there.", ans: "FALSE" },
+                { q: "4. The weather got worse during Paul's boat trip.", ans: "FALSE" },
+                { q: "5. Paul had expected to go swimming closer to land.", ans: "TRUE" },
+                { q: "6. Paul was beginning to feel unhappy about the trip until someone saw the dolphins.", ans: "TRUE" },
+                { q: "7. Paul believed the dolphins were inviting him to join them in water.", ans: "TRUE" },
+                { q: "8. Paul felt that he had failed to communicate with the dolphins.", ans: "FALSE" },
+                { q: "9. One dolphin copied exactly what Paul did in the water.", ans: "FALSE" },
+                { q: "10. Paul was pleased when the guides finally called them back onto the boat.", ans: "TRUE" }
+            ]
+        },
+        part2: {
+            title: "One to Watch!",
+            text: `<p><strong>One to Watch!</strong></p>
+                   <p><strong>Essay by Jessica Bourne, aged 14</strong></p>
+                   <p>I'm a big fan of films featuring the spy James Bond. I've got most of them on DVD. We've recently bought Quantum of Solace, in which Daniel Craig plays the part of Bond. I don't know why the film's got that name – but it's great movie, anyway.</p>
+                   <p>All the actors who've played James Bond have been great, but Daniel Craig, who's made lots of other films, plays the part better than any of them. Even though he doesn't talk very much, I think he's the most perfect actor for the role. He even does a few of the more dangerous things in the film himself, instead of getting someone else to do them. I did wonder sometimes whether he'd be clever enough to defeat the bad people – but I'm not going to tell you the ending! The actress who stars with Craig gives a fantastic performance too – I loved all the glamorous clothes she wore!</p>
+                   <p>The director probably had a hard job making this Bond film as full of action as earlier ones. But the excitement starts right at the beginning here, with a car chase along a mountain road, and plenty of other thrilling scenes, too – Bond leaping off tall buildings and so on. Unfortunately I found the story difficult to follow in places, and it also seemed to be over very quickly – it lasted under two hours. I also felt there weren't as many jokes as in the old Bond films. And where was all the ridiculous Bond equipment – the underwater car or exploding watch that everyone laughed at? This is a more serious, darker Bond film, but I still really enjoyed it.</p>`,
+            questions: [
+                {
+                    q: "11. What is Jessica trying to do in her essay?",
+                    options: [
+                        "A. explain what first attracted her to Bond films",
+                        "B. tell readers about the Bond DVDs she owns",
+                        "C. give a balanced view of a Bond film she has seen",
+                        "D. describe how Daniel Craig got the part of James Bond"
+                    ],
+                    ans: "C"
+                },
+                {
+                    q: "12. What can a reader find out from Jessica's essay?",
+                    options: [
+                        "A. whether Quantum of Solace is her favourite Bond film",
+                        "B. what other films Daniel Craig has made",
+                        "C. which other actors have played James Bond",
+                        "D. whether she thinks Daniel Craig is the best James Bond"
+                    ],
+                    ans: "D"
+                },
+                {
+                    q: "13. What does Jessica tell about Craig in the new Bond film?",
+                    options: [
+                        "A. He performs some of the action scenes",
+                        "B. He wears some stylish clothes",
+                        "C. He is given a lot of lines to say",
+                        "D. He looks strong and fit enough to fight the criminals"
+                    ],
+                    ans: "A"
+                },
+                {
+                    q: "14. What is one problem with the film, according to Jessica?",
+                    options: [
+                        "A. It seems a bit too long",
+                        "B. It's sometimes hard to understand what's happening",
+                        "C. It has too much silly technology in it",
+                        "D. It has jokes that aren't very funny"
+                    ],
+                    ans: "B"
+                },
+                {
+                    q: "15. Which of these might appear in a magazine review of the new Bond film?",
+                    options: [
+                        "A. It's full of excitement, with Bond jumping across rooftops, so don't be disappointed by the slow start.",
+                        "B. The director wanted to move away from the last Bond film and include a bit less action.",
+                        "C. I'm not sure the title tells you much … But be prepared to watch a rather different kind of Bond movie.",
+                        "D. Daniel Craig performed well as James Bond, but the main female star was disappointing."
+                    ],
+                    ans: "C"
+                }
+            ]
+        },
+        part3: {
+            title: "Tips for giving an effective business presentation",
+            text: `<p><strong>Tips for giving an effective business presentation</strong></p>
+                   <p><strong>Preparation:</strong></p>
+                   <p>Get someone else to evaluate your performance and highlight your best skills. For example, go through your presentation in front of a colleague or relative. Think about who your audience is and what you want them to get out of the presentation. Think about content and style.</p>
+                   <p>Go into the presentation room and try out any moves you may have to make, e.g. getting up from your chair and moving to the podium. Errors in the first 20 seconds can be very disorientating.</p>
+                   <p>Familiarise yourself with the electronic equipment before the presentation and also have a backup plan in mind, should there be an unexpected problem like a power cut.</p>
+                   <p><strong>Dealing with presentation nervousness:</strong></p>
+                   <p>A certain amount of nervousness is vital for a good presentation. The added adrenaline will keep your faculties sharp and give your presentation skills extra force. This can, however, result in tension in the upper chest. Concentrate on your breathing. Slow it right down and this will relax you. Strangely, having something to pick up and put down tends to help you do this.</p>
+                   <p>It may seem an odd idea, but we seem to feel calmer when we engage in what's referred to as a displacement activity, like clicking a pen or fiddling with jewellery. A limited amount of this will not be too obvious and can make you feel more secure at the start.</p>
+                   <p><strong>Interacting with your audience:</strong></p>
+                   <p>Think of your presentation as a conversation with your audience. They may not actually say anything, but make them feel consulted, questioned, challenged, then they will stay awake and attentive.</p>
+                   <p>Engage with your present audience, not the one you have prepared for. Keep looking for reactions to your ideas and respond to them. If your audience doesn't appear to be following you, find another way to get your ideas across. If you don't interact, you might as well send a video recording of your presentation instead!</p>
+                   <p><strong>Structuring effective presentations:</strong></p>
+                   <p>Effective presentations are full of examples. These help your listeners to see more clearly what you mean. It's quicker and more colourful. Stick to the point using three or four main ideas. For any subsidiary information that you cannot present in 20 minutes, try another medium, such as handouts.</p>
+                   <p>End as if your presentation has gone well. Do this even if you feel you've presented badly. And anyway a good finish will get you some applause – and you deserve it!</p>`,
+            questions: [
+                { q: "16. Practising your presentation on a ………………….. or a family member is helpful.", ans: "colleague" },
+                { q: "17. Be prepared for a problem such as a ………………….. .", ans: "power cut" },
+                { q: "18. One way to overcome pre-presentation nerves is to make your ………………….. less rapid.", ans: "breathing" },
+                { q: "19. It is acceptable to do something called a ………………….. at the start of the presentation to reassure you.", ans: "displacement activity" },
+                { q: "20. Your presentation should be like a ………………….. with the people who have come to hear you.", ans: "conversation" },
+                { q: "21. Check constantly for ………………….. to the points you are making.", ans: "reactions" },
+                { q: "22. Make sure you use plenty of ………………….. to communicate your message effectively.", ans: "examples" },
+                { q: "23. To keep the presentation short, use things like ………………….. to provide extra details.", ans: "handouts" },
+                { q: "24. Gain relevant experience by applying for temporary ………………….. with local papers.", ans: "internships" },
+                { q: "25. Apply for internships to acquire the extra ………………….. you'll need.", ans: "skills" },
+                { q: "26. Build up a set of ………………….. in a portfolio.", ans: "cuttings" },
+                { q: "27. Take time to do detailed ………………….. before applying.", ans: "research" },
+                { q: "28. Make sure your CV is without ………………….. of any kind.", ans: "errors" }
+            ]
+        }
+    };
+
+    // ===== LOAD FUNCTIONS =====
+    function loadReadingPart(part) {
+        const data = readingData[`part${part}`];
+        document.getElementById(`reading${part}-text`).innerHTML = data.text;
+
+        const container = document.getElementById(`reading${part}-questions`);
+        
+        if (part === 1) {
+            // True/False questions
+            data.questions.forEach((item, idx) => {
+                const html = `<div class="question-item">
+                    <p>${item.q}</p>
+                    <div style="display: flex; gap: 1rem;">
+                        <label class="option-label">
+                            <input type="radio" name="r${part}-${idx}" value="TRUE">
+                            <span style="font-weight: 600;">TRUE</span>
+                        </label>
+                        <label class="option-label">
+                            <input type="radio" name="r${part}-${idx}" value="FALSE">
+                            <span style="font-weight: 600;">FALSE</span>
+                        </label>
+                    </div>
+                </div>`;
+                container.innerHTML += html;
+            });
+        } else if (part === 2) {
+            // Multiple choice questions
+            data.questions.forEach((item, idx) => {
+                let html = `<div class="question-item"><p>${item.q}</p><div style="margin-top: 1rem;">`;
+                item.options.forEach((opt) => {
+                    html += `<label class="option-label">
+                        <input type="radio" name="r${part}-${idx}" value="${opt[0]}">
+                        <span>${opt}</span>
+                    </label>`;
+                });
+                html += `</div></div>`;
+                container.innerHTML += html;
+            });
+        } else if (part === 3) {
+            // Fill in the blanks
+            data.questions.forEach((item, idx) => {
+                const html = `<div class="question-item">
+                    <p>${item.q}</p>
+                    <input type="text" id="r${part}-${idx}" placeholder="Type answer (max 2 words)">
+                </div>`;
+                container.innerHTML += html;
+            });
+        }
+    }
+
+    // ===== GRADE FUNCTIONS =====
+    function gradeReadingPart(part) {
+        const data = readingData[`part${part}`];
+        let score = 0;
+
+        data.questions.forEach((item, idx) => {
+            const id = `r${part}-${idx}`;
+            let element, userAnswer;
+
+            if (part === 1 || part === 2) {
+                element = document.querySelector(`input[name="${id}"]:checked`);
+                userAnswer = element ? element.value : "";
+            } else {
+                element = document.getElementById(id);
+                userAnswer = element.value.trim().toLowerCase();
+            }
+
+            const parentItem = element ? element.closest('.question-item') : document.getElementById(id).closest('.question-item');
+            
+            if (parentItem) {
+                parentItem.classList.remove('correct-answer', 'wrong-answer');
+                
+                let isCorrect = false;
+                if (part === 1 || part === 2) {
+                    isCorrect = userAnswer === item.ans;
+                } else {
+                    isCorrect = userAnswer === item.ans.toLowerCase() || userAnswer === item.ans.split(' ')[0].toLowerCase();
+                }
+
+                if (isCorrect) {
+                    score++;
+                    parentItem.classList.add('correct-answer');
+                    if (!parentItem.querySelector('.answer-hint')) {
+                        parentItem.innerHTML += `<span class="answer-hint correct"><i class="fas fa-check"></i> Correct!</span>`;
+                    }
+                } else if (userAnswer) {
+                    parentItem.classList.add('wrong-answer');
+                    if (!parentItem.querySelector('.answer-hint')) {
+                        parentItem.innerHTML += `<span class="answer-hint wrong"><i class="fas fa-times"></i> Correct: <strong>${item.ans}</strong></span>`;
+                    }
+                }
+            }
+        });
+
+        return score;
+    }
+
+    function gradeAllReading() {
+        const scores = {
+            part1: gradeReadingPart(1),
+            part2: gradeReadingPart(2),
+            part3: gradeReadingPart(3)
+        };
+
+        const total = scores.part1 + scores.part2 + scores.part3;
+        const maxScore = readingData.part1.questions.length + readingData.part2.questions.length + readingData.part3.questions.length;
+        const percentage = Math.round((total / maxScore) * 100);
+
+        let bandScore = 9;
+        if (percentage < 60) bandScore = 5;
+        else if (percentage < 70) bandScore = 6;
+        else if (percentage < 80) bandScore = 7;
+        else if (percentage < 90) bandScore = 8;
+        else if (percentage < 95) bandScore = 8.5;
+
+        alert(`✅ TEST COMPLETED!\n\n📊 RESULTS:\nPart 1: ${scores.part1}/10\nPart 2: ${scores.part2}/5\nPart 3: ${scores.part3}/13\n\nTotal: ${total}/${maxScore}\nPercentage: ${percentage}%\nBand Score: ${bandScore}`);
+    }
+
+    // ===== NAVIGATION =====
+    function navigateTo(page) {
+        const partNum = parseInt(page.slice(-1));
+        currentReadingPart = partNum;
+
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.getElementById(page).classList.add('active');
+
+        document.querySelectorAll('.navbar-nav a').forEach(a => a.classList.remove('active'));
+        document.getElementById(`nav-reading${partNum}`).classList.add('active');
+
+        updateNavButtons();
+    }
+
+    function nextReading() {
+        if (currentReadingPart < 3) {
+            currentReadingPart++;
+            navigateTo(`reading${currentReadingPart}`);
+        }
+    }
+
+    function previousReading() {
+        if (currentReadingPart > 1) {
+            currentReadingPart--;
+            navigateTo(`reading${currentReadingPart}`);
+        }
+    }
+
+    function updateNavButtons() {
+        const prevBtn = document.getElementById('nav-back');
+        const nextBtn = document.getElementById('nav-next');
+        
+        prevBtn.disabled = currentReadingPart === 1;
+        nextBtn.disabled = currentReadingPart === 3;
+    }
+
+    // ===== UTILITY FUNCTIONS =====
+    function toggleZoom() {
+        zoomLevel = zoomLevel === 1 ? 1.2 : 1;
+        document.body.style.fontSize = (16 * zoomLevel) + 'px';
+    }
+
+    function printPage() {
+        window.print();
+    }
+
+    function highlightText(color) {
+        const selection = window.getSelection();
+        if (selection.toString()) {
+            const range = selection.getRangeAt(0);
+            const span = document.createElement('span');
+            span.className = color;
+            range.surroundContents(span);
+        }
+    }
+
+    function removeHighlights() {
+        document.querySelectorAll('[class*="highlight-"]').forEach(el => {
+            const parent = el.parentNode;
+            while (el.firstChild) parent.insertBefore(el.firstChild, el);
+            parent.removeChild(el);
+        });
+    }
+
+    function showModal(id) {
+        document.getElementById(id).classList.add('show');
+    }
+
+    function closeModal(id) {
+        document.getElementById(id).classList.remove('show');
+    }
+
+    function confirmExit() {
+        if (confirm('Exit test? Your progress will be lost.')) {
+            window.location.href = 'about:blank';
+        }
+    }
+
+    // ===== INITIALIZE =====
+    document.addEventListener('DOMContentLoaded', function() {
+        loadReadingPart(1);
+        loadReadingPart(2);
+        loadReadingPart(3);
+        updateNavButtons();
+    });
+
+    // Close modal when clicking outside
+    window.onclick = function(event) {
+        if (event.target.classList.contains('modal')) {
+            event.target.classList.remove('show');
+        }
+    }
+</script>
+
+</body>
+</html>

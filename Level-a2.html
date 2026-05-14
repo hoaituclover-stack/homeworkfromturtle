@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A2 Level - TURTLE's IELTS Platform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-green: #5FD5C8;
+            --primary-yellow: #FFD97D;
+            --primary-orange: #FF9F5A;
+            --light-bg: #F0F9F8;
+            --dark-text: #2D3E50;
+        }
+
+        html, body {
+            height: 100%;
+            font-family: 'Poppins', 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #F0F9F8 0%, #FFF5F1 100%);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            background: white;
+            padding: 25px 35px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .level-badge {
+            background: linear-gradient(135deg, var(--primary-green) 0%, #4AC9BC 100%);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 20px;
+        }
+
+        .header-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--dark-text);
+        }
+
+        .user-info {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .user-name {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .btn-back {
+            background: white;
+            border: 2px solid var(--primary-green);
+            color: var(--primary-green);
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-back:hover {
+            background: var(--primary-green);
+            color: white;
+        }
+
+        /* Exercise Tabs */
+        .exercise-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #E8E8E8;
+            flex-wrap: wrap;
+        }
+
+        .tab-button {
+            padding: 12px 20px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            color: #999;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+            position: relative;
+            bottom: -2px;
+        }
+
+        .tab-button.active {
+            color: var(--primary-green);
+            border-bottom-color: var(--primary-green);
+        }
+
+        .tab-button:hover {
+            color: var(--dark-text);
+        }
+
+        .exercise-content {
+            display: none;
+        }
+
+        .exercise-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .exercise-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .exercise-card {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border-left: 5px solid var(--primary-green);
+        }
+
+        .exercise-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        .exercise-number {
+            display: inline-block;
+            background: var(--primary-green);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        .exercise-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--dark-text);
+            margin-bottom: 10px;
+        }
+
+        .exercise-meta {
+            display: flex;
+            gap: 15px;
+            font-size: 12px;
+            color: #999;
+            margin-bottom: 12px;
+        }
+
+        .exercise-difficulty {
+            display: inline-block;
+            background: #F0F0F0;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-weight: 500;
+        }
+
+        .exercise-difficulty.easy {
+            background: #D4EDDA;
+            color: #155724;
+        }
+
+        .exercise-difficulty.medium {
+            background: #FFF3CD;
+            color: #856404;
+        }
+
+        .exercise-difficulty.hard {
+            background: #F8D7DA;
+            color: #721C24;
+        }
+
+        .exercise-desc {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .exercise-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary-green) 0%, #4AC9BC 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .exercise-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(95, 213, 200, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+
+            .header-left {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-left">
+                <div class="level-badge">🟢 A2</div>
+                <div class="header-title">Elementary Level</div>
+            </div>
+            <div class="user-info">
+                <div class="user-name" id="userGreeting">Chào bạn!</div>
+                <a href="index1.html" class="btn-back">← Quay lại</a>
+            </div>
+        </div>
+
+        <!-- Exercises Section -->
+        <div class="lessons-section">
+            <h2 class="section-title">✏️ What do you want to practice?</h2>
+            
+            <div class="exercise-tabs">
+                <button class="tab-button active" data-tab="reading">📖 Reading</button>
+                <button class="tab-button" data-tab="listening">🎧 Listening</button>
+                <button class="tab-button" data-tab="vocabulary">📝 Vocabulary</button>
+            </div>
+
+            <!-- Reading Exercises -->
+            <div class="exercise-content active" id="reading">
+                <div class="exercise-list">
+                    <div class="exercise-card">
+                        <div class="exercise-number">1</div>
+                        <div class="exercise-title">My Daily Life</div>
+                        <div class="exercise-meta">
+                            <span class="exercise-difficulty easy">Dễ</span>
+                            <span>⏱️ 10 phút</span>
+                        </div>
+                        <div class="exercise-desc">Đọc đoạn văn về cuộc sống hàng ngày và trả lời các câu hỏi.</div>
+                        <button class="exercise-btn" onclick="openExercise('reading', 1)">Bắt Đầu</button>
+                    </div>
+                    <div class="exercise-card">
+                        <div class="exercise-number">2</div>
+                        <div class="exercise-title">Shopping at the Market</div>
+                        <div class="exercise-meta">
+                            <span class="exercise-difficulty easy">Dễ</span>
+                            <span>⏱️ 12 phút</span>
+                        </div>
+                        <div class="exercise-desc">Đọc về một chuyến mua sắm và chọn đáp án đúng.</div>
+                        <button class="exercise-btn" onclick="openExercise('reading', 2)">Bắt Đầu</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Listening Exercises -->
+            <div class="exercise-content" id="listening">
+                <div class="exercise-list">
+                    <div class="exercise-card">
+                        <div class="exercise-number">1</div>
+                        <div class="exercise-title">Family Introduction</div>
+                        <div class="exercise-meta">
+                            <span class="exercise-difficulty easy">Dễ</span>
+                            <span>⏱️ 8 phút</span>
+                        </div>
+                        <div class="exercise-desc">Nghe người nói giới thiệu gia đình và điền các thông tin thiếu.</div>
+                        <button class="exercise-btn" onclick="openExercise('listening', 1)">Bắt Đầu</button>
+                    </div>
+                    <div class="exercise-card">
+                        <div class="exercise-number">2</div>
+                        <div class="exercise-title">Restaurant Conversation</div>
+                        <div class="exercise-meta">
+                            <span class="exercise-difficulty easy">Dễ</span>
+                            <span>⏱️ 10 phút</span>
+                        </div>
+                        <div class="exercise-desc">Nghe cuộc trò chuyện tại nhà hàng và trả lời câu hỏi.</div>
+                        <button class="exercise-btn" onclick="openExercise('listening', 2)">Bắt Đầu</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vocabulary Exercises -->
+            <div class="exercise-content" id="vocabulary">
+                <div class="exercise-list">
+                    <div class="exercise-card">
+                        <div class="exercise-number">1</div>
+                        <div class="exercise-title">Common Words A2</div>
+                        <div class="exercise-meta">
+                            <span class="exercise-difficulty easy">Dễ</span>
+                            <span>⏱️ 15 phút</span>
+                        </div>
+                        <div class="exercise-desc">Học và luyện các từ vựng phổ biến ở level A2.</div>
+                        <button class="exercise-btn" onclick="openExercise('vocabulary', 1)">Bắt Đầu</button>
+                    </div>
+                    <div class="exercise-card">
+                        <div class="exercise-number">2</div>
+                        <div class="exercise-title">Word Matching Game</div>
+                        <div class="exercise-meta">
+                            <span class="exercise-difficulty easy">Dễ</span>
+                            <span>⏱️ 12 phút</span>
+                        </div>
+                        <div class="exercise-desc">Ghép từ với các định nghĩa tương ứng.</div>
+                        <button class="exercise-btn" onclick="openExercise('vocabulary', 2)">Bắt Đầu</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Load user info
+        window.addEventListener('load', function() {
+            const studentData = localStorage.getItem('studentData');
+            if (studentData) {
+                const data = JSON.parse(studentData);
+                document.getElementById('userGreeting').textContent = `👋 Xin chào, ${data.fullname}!`;
+            }
+        });
+
+        // Tab handling for exercises
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const exerciseContents = document.querySelectorAll('.exercise-content');
+
+        tabButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const tabName = this.getAttribute('data-tab');
+                
+                // Remove active class from all buttons and contents
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                exerciseContents.forEach(content => content.classList.remove('active'));
+                
+                // Add active class to clicked button and corresponding content
+                this.classList.add('active');
+                document.getElementById(tabName).classList.add('active');
+            });
+        });
+
+        // Open exercise function
+        function openExercise(type, exerciseNum) {
+            alert(`Mở bài tập ${type.toUpperCase()} #${exerciseNum} - Chức năng sẽ được cập nhật!\n\nBạn có thể thay thế alert này bằng:\n- Điều hướng tới trang bài tập chi tiết\n- Modal popup với nội dung bài tập\n- Hoặc tích hợp editor/quiz trực tuyến`);
+        }
+
+        // Add click handlers
+        const skillCards = document.querySelectorAll('.skill-card');
+        skillCards.forEach(card => {
+            card.addEventListener('click', function() {
+                const skillName = this.querySelector('.skill-name').textContent;
+                alert(`Mở rộng: ${skillName} - Tính năng sẽ được cập nhật!`);
+            });
+        });
+
+        const lessonItems = document.querySelectorAll('.lesson-item');
+        lessonItems.forEach(item => {
+            item.addEventListener('click', function() {
+                const lessonTitle = this.querySelector('.lesson-title').textContent;
+                alert(`Bài học: ${lessonTitle} - Tính năng sẽ được cập nhật!`);
+            });
+        });
+    </script>
+</body>
+</html>
